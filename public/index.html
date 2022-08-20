@@ -1,51 +1,67 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<link rel="icon" type="image/x-icon" href="favicon.ico" />
-		<style>
-			h1 {
-				font-family: Pacifico, sans-serif;
-				font-size: 4em;
-				color: #3eb5f1;
-				margin: 0;
-			}
+  <head>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <style>
+      h1 {
+        font-family: Pacifico, sans-serif;
+        font-size: 4em;
+        color: #3eb5f1;
+        margin: 0;
+      }
 
-			h2 {
-				font-weight: 300;
-				font-family: sans-serif;
-			}
+      h2 {
+        font-weight: 300;
+        font-family: sans-serif;
+      }
 
-			.centered {
-				position: fixed;
-				top: 50%;
-				left: 50%;
-				transform: translate(-50%, -50%);
-				text-align: center;
-			}
-		</style>
-	</head>
-	<body>
-		<div class="centered">
-			<h1>FX</h1>
-			<canvas id="visualizer"></canvas>
-			<h2>Play some sounds!</h2>
-			<button data-playing="false" role="switch" aria-checked="false">Play/Pause</button>
-			<form>
-				<div>
-					<label for="volume">
-						Gain
-						<input type="range" id="volume" min="0" max="10" value="5" step="0.01" />
-					</label>
-				</div>
-				<div>
-					<label for="distortion">
-						Distortion
-						<input type="range" id="distortion" min="0" max="10" value="1" step="0.01" />
-					</label>
-				</div>
-			</form>
-		</div>
-		<audio src="./assets_guitar.mp3" loop></audio>
-		<script type="module" src="./js/audio.js"></script>
-	</body>
+      .centered {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="centered">
+      <h1>FX</h1>
+      <canvas id="visualizer"></canvas>
+      <h2>Play some sounds!</h2>
+      <button data-playing="false" role="switch" aria-checked="false">
+        Play/Pause
+      </button>
+      <form>
+        <div>
+          <label for="volume">
+            Gain
+            <input
+              type="range"
+              id="volume"
+              min="0"
+              max="10"
+              value="5"
+              step="0.01"
+            />
+          </label>
+        </div>
+        <div>
+          <label for="distortion">
+            Distortion
+            <input
+              type="range"
+              id="distortion"
+              min="0"
+              max="10"
+              value="1"
+              step="0.01"
+            />
+          </label>
+        </div>
+      </form>
+    </div>
+    <audio src="./assets_guitar.mp3" loop></audio>
+    <script type="module" src="./js/audio.js"></script>
+  </body>
 </html>

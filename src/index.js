@@ -1,7 +1,7 @@
 import {
   getAssetFromKV,
   mapRequestToAsset,
-} from "@cloudflare/kv-asset-handler";
+} from '@cloudflare/kv-asset-handler';
 
 /**
  * The DEBUG flag will do two things that help during development:
@@ -12,7 +12,7 @@ import {
  */
 const DEBUG = false;
 
-addEventListener("fetch", (event) => {
+addEventListener('fetch', (event) => {
   event.respondWith(handleEvent(event));
 });
 
@@ -38,11 +38,11 @@ async function handleEvent(event) {
     // allow headers to be altered
     const response = new Response(page.body, page);
 
-    response.headers.set("X-XSS-Protection", "1; mode=block");
-    response.headers.set("X-Content-Type-Options", "nosniff");
-    response.headers.set("X-Frame-Options", "DENY");
-    response.headers.set("Referrer-Policy", "unsafe-url");
-    response.headers.set("Feature-Policy", "none");
+    response.headers.set('X-XSS-Protection', '1; mode=block');
+    response.headers.set('X-Content-Type-Options', 'nosniff');
+    response.headers.set('X-Frame-Options', 'DENY');
+    response.headers.set('Referrer-Policy', 'unsafe-url');
+    response.headers.set('Feature-Policy', 'none');
 
     return response;
   } catch (e) {
@@ -79,7 +79,7 @@ function handlePrefix(prefix) {
     let url = new URL(defaultAssetKey.url);
 
     // strip the prefix from the path for lookup
-    url.pathname = url.pathname.replace(prefix, "/");
+    url.pathname = url.pathname.replace(prefix, '/');
 
     // inherit all other props from the default request
     return new Request(url.toString(), defaultAssetKey);

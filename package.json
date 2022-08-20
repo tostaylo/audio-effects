@@ -1,13 +1,14 @@
 {
-	"name": "audio-effects",
-	"version": "0.0.0",
-	"devDependencies": {
-		"@cloudflare/kv-asset-handler": "^0.2.0",
-		"wrangler": "0.0.30"
-	},
-	"private": true,
-	"scripts": {
-		"start": "wrangler dev",
-		"publish": "wrangler publish"
-	}
+  "name": "audio-effects",
+  "version": "0.0.0",
+  "devDependencies": {
+    "@cloudflare/kv-asset-handler": "^0.2.0",
+    "prettier": "2.7.1",
+    "wrangler": "0.0.30"
+  },
+  "private": true,
+  "scripts": {
+    "start": "wrangler dev",
+    "publish": "wrangler publish"
+  }
 }
