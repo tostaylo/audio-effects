@@ -3,12 +3,15 @@
   "version": "0.0.0",
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "^0.2.0",
+    "husky": "^8.0.1",
     "prettier": "2.7.1",
     "wrangler": "0.0.30"
   },
   "private": true,
   "scripts": {
     "start": "wrangler dev",
-    "publish": "wrangler publish"
+    "publish": "wrangler publish",
+    "prepare": "husky install",
+    "pretty": "npx prettier --write ."
   }
 }
