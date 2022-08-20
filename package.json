@@ -4,6 +4,7 @@
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "^0.2.0",
     "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
     "prettier": "2.7.1",
     "wrangler": "0.0.30"
   },
@@ -12,6 +13,7 @@
     "start": "wrangler dev",
     "publish": "wrangler publish",
     "prepare": "husky install",
-    "pretty": "npx prettier --write ."
+    "pretty": "npx prettier --write .",
+    "lint": "lint-staged"
   }
 }
