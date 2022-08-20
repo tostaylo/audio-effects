@@ -1,4 +1,4 @@
-import { createDistortionCurve } from './distortion.js';
+import { handleDistortion, handleGain } from './events.js';
 
 export default function DOM({ gainNode, distortionNode }, audioContext) {
 	const volumeControl = document.querySelector('#volume');
@@ -10,17 +10,6 @@ export default function DOM({ gainNode, distortionNode }, audioContext) {
 	const playButton = document.querySelector('button');
 	const audioElement = document.querySelector('audio');
 	playButton.addEventListener('click', (e) => handlePlayPause(audioContext, audioElement, e), false);
-}
-
-function handleGain(gainNode, value) {
-	gainNode.gain.value = value;
-	console.log(gainNode.gain.value);
-}
-
-function handleDistortion(distortionFilter, value) {
-	const distortion = value * 10;
-	console.log(distortion);
-	distortionFilter.curve = createDistortionCurve(distortion);
 }
 
 export function handlePlayPause(audioContext, audioElement, e) {
