@@ -1,4 +1,5 @@
 import DOM from './dom.js';
+import Reverb from './reverb.js';
 import Distortion from './distortion.js';
 import Gain from './gain.js';
 import createTrack from './track.js';
@@ -16,10 +17,12 @@ export default function initialize() {
 
   const distortionNode = Distortion(audioContext);
   const gainNode = Gain(audioContext);
+  const reverbNode = Reverb(audioContext);
 
   track
     .connect(gainNode)
     .connect(distortionNode)
+    .connect(reverbNode)
     .connect(analyser)
     .connect(audioContext.destination);
 
