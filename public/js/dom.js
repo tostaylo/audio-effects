@@ -20,7 +20,8 @@ export default function DOM(
 
   const reverbControl = document.querySelector('#reverb');
   reverbControl.addEventListener('change', () => {
-    if (this.value == '1') {
+    const selectOptions = document.querySelector('#reverb');
+    if (selectOptions.value == '1') {
       handleReverb(reverbNode, true);
     } else {
       handleReverb(reverbNode, false);
