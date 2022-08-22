@@ -11,4 +11,12 @@ function handleDistortion(distortionFilter, value) {
   distortionFilter.curve = createDistortionCurve(distortion);
 }
 
-export { handleDistortion, handleGain };
+function handleReverb(reverbNode, value) {
+  if (value == true) {
+    reverbNode.normalize = true;
+  } else {
+    reverbNode.normalize = false;
+  }
+}
+
+export { handleDistortion, handleGain, handleReverb };
