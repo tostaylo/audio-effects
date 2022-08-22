@@ -1,6 +1,9 @@
-import { handleDistortion, handleGain } from './events.js';
+import { handleDistortion, handleGain, handleReverb } from './events.js';
 
-export default function DOM({ gainNode, distortionNode }, audioContext) {
+export default function DOM(
+  { gainNode, distortionNode, reverbNode },
+  audioContext
+) {
   const volumeControl = document.querySelector('#volume');
   volumeControl.addEventListener(
     'input',
@@ -14,6 +17,15 @@ export default function DOM({ gainNode, distortionNode }, audioContext) {
     (e) => handleDistortion(distortionNode, e.target.value),
     false
   );
+
+  const reverbControl = document.querySelector('#reverb');
+  reverbControl.addEventListener('change', () => {
+    if (this.value == '1') {
+      handleReverb(reverbNode, true);
+    } else {
+      handleReverb(reverbNode, false);
+    }
+  });
 
   const playButton = document.querySelector('button');
   const audioElement = document.querySelector('audio');

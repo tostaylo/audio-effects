@@ -26,7 +26,7 @@ export default function initialize() {
     .connect(analyser)
     .connect(audioContext.destination);
 
-  DOM({ gainNode, distortionNode }, audioContext);
+  DOM({ gainNode, distortionNode, reverbNode }, audioContext);
 }
 
 initialize();
