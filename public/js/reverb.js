@@ -3,14 +3,12 @@
 // use the decodeAudioData on the manipulated wav and apply the result as the value of the buffer property of createConvolver
 // return end product to acheive reverb effect
 export default async function Reverb(audioContext) {
-  let reverb = audioContext.createConvolver();
+  let reverb = new ConvolverNode(audioContext);
 
   const response = await fetch('vocal_duo.wav');
   const buffer = await response.arrayBuffer();
 
-  await audioContext.decodeAudioData(buffer, (result) => {
-    reverb.buffer = result;
-  });
+  reverb.buffer = await audioContext.decodeAudioData(buffer);
 
   return reverb;
 }

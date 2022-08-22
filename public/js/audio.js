@@ -5,7 +5,7 @@ import Gain from './gain.js';
 import createTrack from './track.js';
 import waveformVisualizer from './visualizer.js';
 
-export default function initialize() {
+export default async function initialize() {
   const audioContext = new AudioContext();
   const audioElement = document.querySelector('audio');
 
@@ -17,7 +17,7 @@ export default function initialize() {
 
   const distortionNode = Distortion(audioContext);
   const gainNode = Gain(audioContext);
-  const reverbNode = Reverb(audioContext);
+  const reverbNode = await Reverb(audioContext);
 
   track
     .connect(gainNode)
@@ -29,4 +29,4 @@ export default function initialize() {
   DOM({ gainNode, distortionNode, reverbNode }, audioContext);
 }
 
-initialize();
+await initialize();
