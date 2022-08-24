@@ -26,7 +26,7 @@ export default async function initialize() {
     .connect(analyser)
     .connect(audioContext.destination);
 
-  DOM({ gainNode, distortionNode, reverbNode }, audioContext);
+  DOM({ gainNode, distortionNode, reverbNode, track }, audioContext);
 }
 
 await initialize();

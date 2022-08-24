@@ -1,7 +1,7 @@
 import { handleDistortion, handleGain, handleReverb } from './events.js';
 
 export default function DOM(
-  { gainNode, distortionNode, reverbNode },
+  { gainNode, distortionNode, reverbNode, track },
   audioContext
 ) {
   const volumeControl = document.querySelector('#volume');
@@ -22,9 +22,9 @@ export default function DOM(
   reverbControl.addEventListener('change', () => {
     const selectOptions = document.querySelector('#reverb');
     if (selectOptions.value == '1') {
-      handleReverb(reverbNode, true);
+      handleReverb(reverbNode, true, track);
     } else {
-      handleReverb(reverbNode, false);
+      handleReverb(reverbNode, false, track);
     }
   });
 
