@@ -5,6 +5,14 @@ import createTrack from './track.js';
 import waveformVisualizer from './visualizer.js';
 import impulseResponse from './impulse-response.js';
 
+function getNodeType(node) {
+  switch (node.constructor) {
+    case GainNode: {
+      return 'Gain';
+    }
+  }
+}
+
 export default async function initialize() {
   const audioContext = new AudioContext();
   const audioElement = document.querySelector('audio');
@@ -21,13 +29,20 @@ export default async function initialize() {
   const preAmpGainNode = Gain(audioContext);
   const postAmpGainNode = Gain(audioContext, { gain: 2 });
 
-  track
-    .connect(preAmpGainNode)
-    .connect(distortionNode)
-    .connect(convolver)
-    .connect(postAmpGainNode)
-    .connect(analyser)
-    .connect(audioContext.destination);
+  const createButton = document.getElementById('create');
+  createButton.addEventListener('click', () => {
+    console.log('clicked', audioContext.state);
+    const nodes = [preAmpGainNode, distortionNode, convolver, postAmpGainNode];
+    console.log(nodes);
+
+    const newTrack = nodes.reduce((acc, node) => acc.connect(node), track);
+    newTrack.connect(analyser).connect(audioContext.destination);
+
+    if (audioContext.state === 'suspended') {
+      audioContext.resume();
+    }
+    audioElement.play();
+  });
 
   DOM({ gainNode: preAmpGainNode, distortionNode }, audioContext);
 }
