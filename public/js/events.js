@@ -11,15 +11,4 @@ function handleDistortion(distortionFilter, value) {
   distortionFilter.curve = createDistortionCurve(distortion);
 }
 
-function handleReverb(reverbNode, value, track) {
-  if (value == true) {
-    track.connect(reverbNode);
-    reverbNode.normalize = true;
-    console.log('reverb turned on');
-  } else {
-    reverbNode.disconnect();
-    console.log('reverb turned off');
-  }
-}
-
 export { handleDistortion, handleGain, handleReverb };
