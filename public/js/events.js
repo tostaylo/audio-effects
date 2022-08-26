@@ -11,4 +11,4 @@ function handleDistortion(distortionFilter, value) {
   distortionFilter.curve = createDistortionCurve(distortion);
 }
 
-export { handleDistortion, handleGain, handleReverb };
+export { handleDistortion, handleGain };

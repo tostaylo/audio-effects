@@ -1,5 +1,5 @@
-export default function Gain(audioContext) {
-  const gainNode = audioContext.createGain();
+export default function Gain(audioContext, options = {}) {
+  const gainNode = new GainNode(audioContext, options);
 
   return gainNode;
 }
