@@ -13,6 +13,9 @@ function getNodeType(node) {
   }
 }
 
+const createGraph = (nodes, track) =>
+  nodes.reduce((acc, node) => acc.connect(node), track);
+
 export default async function initialize() {
   const audioContext = new AudioContext();
   const audioElement = document.querySelector('audio');
@@ -29,19 +32,32 @@ export default async function initialize() {
   const preAmpGainNode = Gain(audioContext);
   const postAmpGainNode = Gain(audioContext, { gain: 2 });
 
+  const nodes = [
+    preAmpGainNode,
+    distortionNode,
+    convolver,
+    postAmpGainNode,
+    analyser,
+    audioContext.destination,
+  ];
+
   const createButton = document.getElementById('create');
   createButton.addEventListener('click', () => {
-    console.log('clicked', audioContext.state);
-    const nodes = [preAmpGainNode, distortionNode, convolver, postAmpGainNode];
-    console.log(nodes);
-
-    const newTrack = nodes.reduce((acc, node) => acc.connect(node), track);
-    newTrack.connect(analyser).connect(audioContext.destination);
+    createGraph(nodes, track);
 
     if (audioContext.state === 'suspended') {
       audioContext.resume();
     }
     audioElement.play();
+  });
+
+  const modifyButton = document.getElementById('modify');
+  modifyButton.addEventListener('click', () => {
+    const newNodes = [...nodes.slice(2)];
+
+    nodes.reverse().forEach((node) => node.disconnect());
+
+    createGraph(newNodes, track);
   });
 
   DOM({ gainNode: preAmpGainNode, distortionNode }, audioContext);
