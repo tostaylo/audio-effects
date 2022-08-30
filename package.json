@@ -16,7 +16,7 @@
     "prepare": "husky install",
     "pretty": "npx prettier --write .",
     "lint": "lint-staged",
-    "build": "esbuild public/js/audio.js --bundle --outfile=public/js/out.js --watch"
+    "build:dev": "esbuild public/js/audio.js --bundle --outfile=public/js/out.js --watch"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.5"
