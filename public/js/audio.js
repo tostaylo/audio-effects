@@ -4,6 +4,24 @@ import Gain from './gain.js';
 import createTrack from './track.js';
 import waveformVisualizer from './visualizer.js';
 import impulseResponse from './impulse-response.js';
+import { configureStore } from '@reduxjs/toolkit';
+
+function counterReducer(state = { value: 0 }, action) {
+  switch (action.type) {
+    case 'counter/incremented':
+      return { value: state.value + 1 };
+    case 'counter/decremented':
+      return { value: state.value - 1 };
+    default:
+      return state;
+  }
+}
+
+// Create a Redux store holding the state of your app.
+// Its API is { subscribe, dispatch, getState }.
+let store = configureStore({ reducer: counterReducer });
+
+console.log(store);
 
 function getNodeType(node) {
   switch (node.constructor) {
@@ -63,4 +81,4 @@ export default async function initialize() {
   DOM({ gainNode: preAmpGainNode, distortionNode }, audioContext);
 }
 
-await initialize();
+initialize();
