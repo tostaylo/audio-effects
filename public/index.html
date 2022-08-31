@@ -1,5 +1,3 @@
-<!-- write out a button on the index.html file
-use dom.js and events.js to turn off and on the reverb -->
 <!DOCTYPE html>
 <html>
   <head>
@@ -31,9 +29,8 @@ use dom.js and events.js to turn off and on the reverb -->
       <h1>FX</h1>
       <canvas id="visualizer"></canvas>
       <h2>Play some sounds!</h2>
-      <button data-playing="false" role="switch" aria-checked="false">
-        Play/Pause
-      </button>
+      <button id="create">Create</button>
+      <button id="modify">Modify</button>
       <form>
         <div>
           <label for="volume">
@@ -64,6 +61,6 @@ use dom.js and events.js to turn off and on the reverb -->
       </form>
     </div>
     <audio src="./assets_guitar.mp3" loop></audio>
-    <script type="module" src="./js/audio.js"></script>
+    <script type="module" src="./js/out.js"></script>
   </body>
 </html>

@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "^0.2.0",
+    "esbuild": "^0.15.6",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
     "prettier": "2.7.1",
@@ -14,6 +15,10 @@
     "publish": "wrangler publish",
     "prepare": "husky install",
     "pretty": "npx prettier --write .",
-    "lint": "lint-staged"
+    "lint": "lint-staged",
+    "build:dev": "esbuild public/js/audio.js --bundle --outfile=public/js/out.js --watch"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.8.5"
   }
 }
