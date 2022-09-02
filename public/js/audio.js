@@ -1,4 +1,5 @@
 import DOM from './dom.js';
+import Reverb from './reverb.js';
 import Distortion from './distortion.js';
 import Gain from './gain.js';
 import createTrack from './track.js';
@@ -49,11 +50,13 @@ export default async function initialize() {
 
   const preAmpGainNode = Gain(audioContext);
   const postAmpGainNode = Gain(audioContext, { gain: 2 });
+  const reverbNode = await Reverb(audioContext);
 
   const nodes = [
     preAmpGainNode,
     distortionNode,
     convolver,
+    reverbNode,
     postAmpGainNode,
     analyser,
     audioContext.destination,
