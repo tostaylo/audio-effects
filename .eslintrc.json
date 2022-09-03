@@ -9,5 +9,8 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "rules": {}
+  "rules": {
+    "no-duplicate-imports": ["error", "always"],
+    "no-unreachable-loop": ["error", "always"]
+  }
 }
