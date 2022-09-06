@@ -1,6 +1,6 @@
 import { handleDistortion, handleGain } from './events.js';
 
-export default function DOM({ gainNode, distortionNode }, audioContext) {
+export default function DOM({ gainNode, distortionNode }) {
   const volumeControl = document.querySelector('#volume');
   volumeControl.addEventListener(
     'input',

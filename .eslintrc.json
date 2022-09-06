@@ -10,7 +10,7 @@
     "sourceType": "module"
   },
   "rules": {
-    "no-duplicate-imports": ["error", "always"],
-    "no-unreachable-loop": ["error", "always"]
+    "no-duplicate-imports": 1,
+    "no-unreachable-loop": 1
   }
 }

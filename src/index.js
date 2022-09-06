@@ -1,6 +1,6 @@
 import {
   getAssetFromKV,
-  mapRequestToAsset,
+  // mapRequestToAsset,
 } from '@cloudflare/kv-asset-handler';
 
 /**
@@ -58,7 +58,9 @@ async function handleEvent(event) {
           ...notFoundResponse,
           status: 404,
         });
-      } catch (e) {}
+      } catch (e) {
+        throw new Error(e);
+      }
     }
 
     return new Response(e.message || e.toString(), { status: 500 });
@@ -72,16 +74,16 @@ async function handleEvent(event) {
  * route on a zone, or if you only want your static content
  * to exist at a specific path.
  */
-function handlePrefix(prefix) {
-  return (request) => {
-    // compute the default (e.g. / -> index.html)
-    let defaultAssetKey = mapRequestToAsset(request);
-    let url = new URL(defaultAssetKey.url);
+// function handlePrefix(prefix) {
+//   return (request) => {
+//     // compute the default (e.g. / -> index.html)
+//     let defaultAssetKey = mapRequestToAsset(request);
+//     let url = new URL(defaultAssetKey.url);
 
-    // strip the prefix from the path for lookup
-    url.pathname = url.pathname.replace(prefix, '/');
+//     // strip the prefix from the path for lookup
+//     url.pathname = url.pathname.replace(prefix, '/');
 
-    // inherit all other props from the default request
-    return new Request(url.toString(), defaultAssetKey);
-  };
-}
+//     // inherit all other props from the default request
+//     return new Request(url.toString(), defaultAssetKey);
+//   };
+// }

@@ -23,13 +23,13 @@ let store = configureStore({ reducer: counterReducer });
 
 console.log(store);
 
-function getNodeType(node) {
-  switch (node.constructor) {
-    case GainNode: {
-      return 'Gain';
-    }
-  }
-}
+// function getNodeType(node) {
+//   switch (node.constructor) {
+//     case GainNode: {
+//       return 'Gain';
+//     }
+//   }
+// }
 
 const createGraph = (nodes, track) =>
   nodes.reduce((acc, node) => acc.connect(node), track);
