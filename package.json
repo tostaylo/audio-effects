@@ -4,6 +4,7 @@
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "^0.2.0",
     "esbuild": "^0.15.6",
+    "eslint": "^8.23.0",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
     "prettier": "2.7.1",
@@ -16,6 +17,7 @@
     "prepare": "husky install",
     "pretty": "npx prettier --write .",
     "lint": "lint-staged",
+    "eslint": "eslint .",
     "build:dev": "esbuild public/js/audio.js --bundle --outfile=public/js/out.js --watch"
   },
   "dependencies": {
