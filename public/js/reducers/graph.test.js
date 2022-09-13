@@ -1,13 +1,14 @@
-import graphReducer from './graphReducer.js';
+import graphReducer from './graph.js';
 import { audioGraphNode } from '../graph';
 import { audioNodeNames } from '../graph/node';
+import { GRAPH } from '../actions';
 
 describe('graphReducer', () => {
   test('given initial empty graph we can connect one node', () => {
     const initialGraph = [];
     const gainNode = audioGraphNode({ type: audioNodeNames.gain }, 0);
     const newGraph = graphReducer(initialGraph, {
-      type: 'connect',
+      type: GRAPH.CONNECT,
       node: gainNode,
     });
 
@@ -22,7 +23,7 @@ describe('graphReducer', () => {
     const reverbNode = audioGraphNode({ type: audioNodeNames.reverb }, 0);
 
     const newGraph = graphReducer(initialGraph, {
-      type: 'connect',
+      type: GRAPH.CONNECT,
       node: reverbNode,
     });
 
@@ -36,7 +37,7 @@ describe('graphReducer', () => {
     const initialGraph = [gainNode, reverbNode];
 
     const newGraph = graphReducer(initialGraph, {
-      type: 'disconnect',
+      type: GRAPH.DISCONNECT,
       node: gainNode,
     });
 
@@ -52,7 +53,7 @@ describe('graphReducer', () => {
     const initialGraph = [gainNode, reverbNode, convolverNode];
 
     const newGraph = graphReducer(initialGraph, {
-      type: 'disconnect',
+      type: GRAPH.DISCONNECT,
       node: reverbNode,
     });
 

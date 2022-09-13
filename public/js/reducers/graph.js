@@ -1,14 +1,14 @@
-// need to create interface for a node which allows connecting, disconnecting, keeping track of where the node is in the signal chain
+import { GRAPH } from '../actions';
 
 function graphReducer(graph = [], action) {
   switch (action.type) {
-    case 'connect':
+    case GRAPH.CONNECT:
       return [
         ...graph.slice(0, action.node.pos),
         action.node,
         ...graph.slice(action.node.pos),
       ];
-    case 'disconnect':
+    case GRAPH.DISCONNECT:
       return graph
         .filter((node) => node.pos !== action.node.pos)
         .map((node, idx) => ({ ...node, pos: idx }));
