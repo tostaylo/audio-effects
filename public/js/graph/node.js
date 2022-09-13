@@ -1,8 +1,14 @@
+const audioNodeNames = {
+  reverb: 'reverb',
+  gain: 'gain',
+  convolver: 'convolver',
+};
+
 function audioGraphNode(node, pos) {
   return {
     pos,
-    type: node?.name,
+    type: node?.type,
   };
 }
 
-export default audioGraphNode;
+export { audioGraphNode as default, audioNodeNames };

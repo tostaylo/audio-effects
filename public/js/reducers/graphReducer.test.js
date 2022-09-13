@@ -1,36 +1,63 @@
 import graphReducer from './graphReducer.js';
 import { audioGraphNode } from '../graph';
+import { audioNodeNames } from '../graph/node';
 
 describe('graphReducer', () => {
   test('given initial empty graph we can connect one node', () => {
     const initialGraph = [];
-    const gainNode = audioGraphNode({ name: 'gain node' }, 0);
+    const gainNode = audioGraphNode({ type: audioNodeNames.gain }, 0);
     const newGraph = graphReducer(initialGraph, {
       type: 'connect',
       node: gainNode,
     });
 
     expect(newGraph).toHaveLength(1);
-    expect(newGraph[0].type).toBe('gain node');
+    expect(newGraph[0].type).toBe(audioNodeNames.gain);
   });
 
   test('given initial graph with one node we can connect another node', () => {
-    const gainNode = audioGraphNode({ name: 'gain node' }, 0);
+    const gainNode = audioGraphNode({ type: audioNodeNames.gain }, 0);
     const initialGraph = [gainNode];
 
-    const reverbNode = audioGraphNode({ name: 'reverb node' }, 0);
+    const reverbNode = audioGraphNode({ type: audioNodeNames.reverb }, 0);
 
     const newGraph = graphReducer(initialGraph, {
       type: 'connect',
       node: reverbNode,
     });
+
     expect(newGraph).toHaveLength(2);
   });
-});
 
-// Continue test driven development
-// Think of API interfaces usability and discoverability
-// 1 problem at a time
-// rename files and put in directories.
-// next step is to decide on an interface that maps graph state to web audio context. make it testable and decoupled from web audio context as much as possible. think layers and adapters.
-// Decide what all my custom audio node needs to hold to represent an audio node completely and how it will easily be able used to create web context audio nodes. Feels very class based and object oriented to me. But how could it be functional? Componnent based. Think React. maybe just maps?
+  test('given initial graph with two nodes we can disconnect the correct node', () => {
+    const gainNode = audioGraphNode({ type: audioNodeNames.gain }, 0);
+    const reverbNode = audioGraphNode({ type: audioNodeNames.reverb }, 1);
+
+    const initialGraph = [gainNode, reverbNode];
+
+    const newGraph = graphReducer(initialGraph, {
+      type: 'disconnect',
+      node: gainNode,
+    });
+
+    expect(newGraph).toHaveLength(1);
+    expect(newGraph[0].type).toBe(audioNodeNames.reverb);
+  });
+
+  test('given initial graph with three nodes we can disconnect the correct node', () => {
+    const gainNode = audioGraphNode({ type: audioNodeNames.gain }, 0);
+    const reverbNode = audioGraphNode({ type: audioNodeNames.reverb }, 1);
+    const convolverNode = audioGraphNode({ type: audioNodeNames.convolver }, 2);
+
+    const initialGraph = [gainNode, reverbNode, convolverNode];
+
+    const newGraph = graphReducer(initialGraph, {
+      type: 'disconnect',
+      node: reverbNode,
+    });
+
+    expect(newGraph).toHaveLength(2);
+    expect(newGraph[0].type).toBe(audioNodeNames.gain);
+    expect(newGraph[1].type).toBe('convolver');
+  });
+});

@@ -10,7 +10,7 @@ function graphReducer(graph = [], action) {
       ];
     case 'disconnect':
       return graph
-        .filter((node) => node.pos !== action.pos)
+        .filter((node) => node.pos !== action.node.pos)
         .map((node, idx) => ({ ...node, pos: idx }));
     default:
       return graph;
