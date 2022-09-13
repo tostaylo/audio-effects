@@ -1,15 +1,30 @@
-import graphReducer from './reducer.js';
-import node from './node';
+import graphReducer from './graphReducer.js';
+import { audioGraphNode } from '../graph';
 
 describe('graphReducer', () => {
   test('given initial empty graph we can connect one node', () => {
     const initialGraph = [];
-    const gainNode = node({ name: 'gain node' }, 0);
+    const gainNode = audioGraphNode({ name: 'gain node' }, 0);
     const newGraph = graphReducer(initialGraph, {
       type: 'connect',
       node: gainNode,
     });
+
     expect(newGraph).toHaveLength(1);
+    expect(newGraph[0].type).toBe('gain node');
+  });
+
+  test('given initial graph with one node we can connect another node', () => {
+    const gainNode = audioGraphNode({ name: 'gain node' }, 0);
+    const initialGraph = [gainNode];
+
+    const reverbNode = audioGraphNode({ name: 'reverb node' }, 0);
+
+    const newGraph = graphReducer(initialGraph, {
+      type: 'connect',
+      node: reverbNode,
+    });
+    expect(newGraph).toHaveLength(2);
   });
 });
 
