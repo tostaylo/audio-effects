@@ -1,5 +1,6 @@
 import DOM from './dom.js';
 import Reverb from './reverb.js';
+import Delay from './delay.js';
 import Distortion from './distortion.js';
 import Gain from './gain.js';
 import createTrack from './track.js';
@@ -20,6 +21,7 @@ export default async function initialize() {
 
   waveformVisualizer(analyser);
 
+  const delayNode = Delay(audioContext);
   const distortionNode = Distortion(audioContext);
 
   const preAmpGainNode = Gain(audioContext);
@@ -28,6 +30,7 @@ export default async function initialize() {
 
   const nodes = [
     preAmpGainNode,
+    delayNode,
     distortionNode,
     convolver,
     reverbNode,
