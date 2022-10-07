@@ -1,5 +1,6 @@
 import DOM from './dom.js';
 import Reverb from './reverb.js';
+import Compressor from './compressor.js';
 import Delay from './delay.js';
 import Distortion from './distortion.js';
 import Gain from './gain.js';
@@ -27,6 +28,7 @@ export default async function initialize() {
   const preAmpGainNode = Gain(audioContext);
   const postAmpGainNode = Gain(audioContext, { gain: 2 });
   const reverbNode = await Reverb(audioContext);
+  const compressorNode = await Compressor(audioContext);
 
   const nodes = [
     preAmpGainNode,
@@ -34,6 +36,7 @@ export default async function initialize() {
     distortionNode,
     convolver,
     reverbNode,
+    compressorNode,
     postAmpGainNode,
     analyser,
     audioContext.destination,
