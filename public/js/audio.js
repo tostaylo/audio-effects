@@ -1,5 +1,6 @@
 import DOM from './dom.js';
 import Reverb from './reverb.js';
+import Fuzz from './fuzz';
 import Delay from './delay.js';
 import Distortion from './distortion.js';
 import Gain from './gain.js';
@@ -21,6 +22,7 @@ export default async function initialize() {
 
   waveformVisualizer(analyser);
 
+  const fuzzNode = Fuzz(audioContext);
   const delayNode = Delay(audioContext);
   const distortionNode = Distortion(audioContext);
 
@@ -30,6 +32,7 @@ export default async function initialize() {
 
   const nodes = [
     preAmpGainNode,
+    fuzzNode,
     delayNode,
     distortionNode,
     convolver,
