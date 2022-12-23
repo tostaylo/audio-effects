@@ -7,6 +7,7 @@ import Gain from './effects/gain.js';
 import createTrack from './track.js';
 import waveformVisualizer from './dom/visualizer.js';
 import impulseResponse from './effects/impulse-response.js';
+import Fuzz from './effects/fuzz.js';
 
 const createGraph = (nodes, track) =>
   nodes.reduce((acc, node) => acc.connect(node), track);
@@ -20,10 +21,9 @@ export default async function initialize() {
   const convolver = await impulseResponse(audioContext);
   const analyser = audioContext.createAnalyser();
 
-  waveformVisualizer(analyser);
-
   const delayNode = Delay(audioContext);
   const distortionNode = Distortion(audioContext);
+  const fuzzNodes = Fuzz(audioContext, track);
 
   const preAmpGainNode = Gain(audioContext);
   const postAmpGainNode = Gain(audioContext, { gain: 2 });
@@ -37,16 +37,14 @@ export default async function initialize() {
   });
 
   const nodes = [
-    preAmpGainNode,
-    delayNode,
-    distortionNode,
-    convolver,
-    reverbNode,
-    compressorNode,
-    postAmpGainNode,
+    // preAmpGainNode,
+    ...fuzzNodes,
+    // postAmpGainNode,
     analyser,
     audioContext.destination,
   ];
+
+  waveformVisualizer(analyser);
 
   const createButton = document.getElementById('create');
   createButton.addEventListener('click', () => {
@@ -59,15 +57,15 @@ export default async function initialize() {
   });
 
   const modifyButton = document.getElementById('modify');
-  modifyButton.addEventListener('click', () => {
-    const newNodes = [...nodes.slice(2)];
+  // modifyButton.addEventListener('click', () => {
+  //   const newNodes = [...nodes.slice(2)];
 
-    nodes.reverse().forEach((node) => node.disconnect());
+  //   nodes.reverse().forEach((node) => node.disconnect());
 
-    createGraph(newNodes, track);
-  });
+  //   createGraph(newNodes, track);
+  // });
 
-  DOM({ gainNode: preAmpGainNode, distortionNode }, audioContext);
+  // DOM({ gainNode: preAmpGainNode, distortionNode }, audioContext);
 }
 
 initialize();

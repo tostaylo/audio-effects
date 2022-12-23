@@ -1,3 +1,4 @@
 node_modules
 public/js/out.js
 notes.md
+.DS_STORE
