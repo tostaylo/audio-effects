@@ -1,3 +1,3 @@
-import graphReducer from './graphReducer';
+import graphReducer from './graph';
 
 export { graphReducer };

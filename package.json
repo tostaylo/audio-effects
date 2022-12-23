@@ -24,10 +24,10 @@
     "start": "wrangler dev",
     "test": "NODE_OPTIONS=--experimental-vm-modules npx jest"
   },
-  "dependencies": {
-    "@reduxjs/toolkit": "^1.8.5"
-  },
   "jest": {
     "transform": {}
+  },
+  "dependencies": {
+    "redux": "^4.2.0"
   }
 }
