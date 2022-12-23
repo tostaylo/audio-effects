@@ -1,4 +1,4 @@
-import { createDistortionCurve } from './distortion.js';
+import { createDistortionCurve } from '../effects/distortion.js';
 
 function handleGain(gainNode, value) {
   gainNode.gain.value = value;

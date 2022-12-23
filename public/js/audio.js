@@ -1,12 +1,12 @@
-import DOM from './dom.js';
-import Reverb from './reverb.js';
-import Compressor from './compressor.js';
-import Delay from './delay.js';
-import Distortion from './distortion.js';
-import Gain from './gain.js';
+import DOM from './dom/dom.js';
+import Reverb from './effects/reverb.js';
+import Compressor from './effects/compressor.js';
+import Delay from './effects/delay.js';
+import Distortion from './effects/distortion.js';
+import Gain from './effects/gain.js';
 import createTrack from './track.js';
-import waveformVisualizer from './visualizer.js';
-import impulseResponse from './impulse-response.js';
+import waveformVisualizer from './dom/visualizer.js';
+import impulseResponse from './effects/impulse-response.js';
 
 const createGraph = (nodes, track) =>
   nodes.reduce((acc, node) => acc.connect(node), track);

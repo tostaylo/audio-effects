@@ -2,7 +2,8 @@ package-lock.json
 .husky
 .lintstagedrc
 .prettierignore
-*.wav
+**.wav
 .gitignore
 .eslintignore
 *.md
+sounds
