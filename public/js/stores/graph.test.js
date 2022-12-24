@@ -1,7 +1,13 @@
 import { audioGraphNode } from '../graph';
-import { audioNodeNames } from '../graph/node';
 import { GRAPH } from '../actions';
 import graphStore from './graph';
+
+const audioNodeNames = {
+  reverb: 'reverb',
+  gain: 'gain',
+  convolver: 'convolver',
+  fuzz: 'fuzz',
+};
 
 describe('graphStore', () => {
   test('given no audio nodes, should initalize to an empty array', () => {

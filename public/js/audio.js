@@ -1,4 +1,4 @@
-import DOM from './dom/dom.js';
+// import DOM from './dom/dom.js';
 import * as Effects from './effects/index';
 import createTrack from './track.js';
 import waveformVisualizer from './dom/visualizer.js';
@@ -51,7 +51,7 @@ export default async function initialize() {
     audioElement.play();
   });
 
-  const modifyButton = document.getElementById('modify');
+  // const modifyButton = document.getElementById('modify');
   // modifyButton.addEventListener('click', () => {
   //   const newNodes = [...nodes.slice(2)];
 
