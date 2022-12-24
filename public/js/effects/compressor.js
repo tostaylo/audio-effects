@@ -1,4 +1,12 @@
-export default function Compressor(audioContext, options = {}) {
+const defaultOptions = {
+  threshold: -40,
+  knee: 30,
+  attack: 1,
+  release: 1,
+  ratio: 15,
+};
+
+export default function Compressor(audioContext, options = defaultOptions) {
   const { currentTime } = audioContext;
   const compressor = audioContext.createDynamicsCompressor();
 

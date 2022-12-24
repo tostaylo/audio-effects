@@ -1,17 +1,25 @@
-import { handleDistortion, handleGain } from './events.js';
+import { handleGain } from './events.js';
 
-export default function DOM({ gainNode, distortionNode }) {
-  const volumeControl = document.querySelector('#volume');
+export default function DOM({
+  nodes,
+  audioContext,
+  audioElement,
+  createTrackGraph,
+}) {
+  const volumeControl = document.getElementById('volume');
   volumeControl.addEventListener(
     'input',
-    (e) => handleGain(gainNode, e.target.value),
+    (e) => handleGain(nodes[0], e.target.value),
     false
   );
 
-  const distortionControl = document.querySelector('#distortion');
-  distortionControl.addEventListener(
-    'input',
-    (e) => handleDistortion(distortionNode, e.target.value),
-    false
-  );
+  const createButton = document.getElementById('create');
+  createButton.addEventListener('click', () => {
+    createTrackGraph();
+
+    if (audioContext.state === 'suspended') {
+      audioContext.resume();
+    }
+    audioElement.play();
+  });
 }
