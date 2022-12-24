@@ -30,7 +30,6 @@
       <canvas id="visualizer"></canvas>
       <h2>Play some sounds!</h2>
       <button id="create">Create</button>
-      <button id="modify">Modify</button>
       <form>
         <div>
           <label for="volume">
@@ -45,22 +44,11 @@
             />
           </label>
         </div>
-        <div>
-          <label for="distortion">
-            Distortion
-            <input
-              type="range"
-              id="distortion"
-              min="0"
-              max="10"
-              value="1"
-              step="0.01"
-            />
-          </label>
-        </div>
       </form>
     </div>
     <audio src="./sounds/sampled-guitar-riff.mp3" loop></audio>
+    <!-- <audio src="sounds/250Hz-44100Hz-16bit-05sec.wav" loop></audio> -->
+
     <script type="module" src="./js/out.js"></script>
   </body>
 </html>

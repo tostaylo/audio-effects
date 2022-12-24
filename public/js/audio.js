@@ -1,15 +1,8 @@
 import DOM from './dom/dom.js';
-import Reverb from './effects/reverb.js';
-import Compressor from './effects/compressor.js';
-import Delay from './effects/delay.js';
-import Distortion from './effects/distortion.js';
-import Gain from './effects/gain.js';
+import * as Effects from './effects/index';
 import createTrack from './track.js';
+import { createTrackGraph } from './graph/track';
 import waveformVisualizer from './dom/visualizer.js';
-import impulseResponse from './effects/impulse-response.js';
-
-const createGraph = (nodes, track) =>
-  nodes.reduce((acc, node) => acc.connect(node), track);
 
 export default async function initialize() {
   const audioContext = new AudioContext();
@@ -17,57 +10,27 @@ export default async function initialize() {
 
   const track = createTrack(audioContext, audioElement);
 
-  const convolver = await impulseResponse(audioContext);
   const analyser = audioContext.createAnalyser();
 
-  waveformVisualizer(analyser);
+  const { Fuzz, Gain } = Effects;
 
-  const delayNode = Delay(audioContext);
-  const distortionNode = Distortion(audioContext);
-
-  const preAmpGainNode = Gain(audioContext);
-  const postAmpGainNode = Gain(audioContext, { gain: 2 });
-  const reverbNode = await Reverb(audioContext);
-  const compressorNode = await Compressor(audioContext, {
-    threshold: -40,
-    knee: 30,
-    attack: 1,
-    release: 1,
-    ratio: 15,
-  });
-
+  // TODO: nodes should be an array of wrapped nodes.
+  // Each node will contain the audio api object and metadata.
   const nodes = [
-    preAmpGainNode,
-    delayNode,
-    distortionNode,
-    convolver,
-    reverbNode,
-    compressorNode,
-    postAmpGainNode,
+    Gain(audioContext),
+    ...Fuzz(audioContext, track),
     analyser,
     audioContext.destination,
   ];
 
-  const createButton = document.getElementById('create');
-  createButton.addEventListener('click', () => {
-    createGraph(nodes, track);
+  waveformVisualizer(analyser);
 
-    if (audioContext.state === 'suspended') {
-      audioContext.resume();
-    }
-    audioElement.play();
+  DOM({
+    nodes,
+    createTrackGraph: () => createTrackGraph(nodes, track),
+    audioContext,
+    audioElement,
   });
-
-  const modifyButton = document.getElementById('modify');
-  modifyButton.addEventListener('click', () => {
-    const newNodes = [...nodes.slice(2)];
-
-    nodes.reverse().forEach((node) => node.disconnect());
-
-    createGraph(newNodes, track);
-  });
-
-  DOM({ gainNode: preAmpGainNode, distortionNode }, audioContext);
 }
 
 initialize();
