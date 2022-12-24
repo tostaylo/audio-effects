@@ -1,13 +1,7 @@
 import DOM from './dom/dom.js';
-import Reverb from './effects/reverb.js';
-import Compressor from './effects/compressor.js';
-import Delay from './effects/delay.js';
-import Distortion from './effects/distortion.js';
-import Gain from './effects/gain.js';
+import * as Effects from './effects/index';
 import createTrack from './track.js';
 import waveformVisualizer from './dom/visualizer.js';
-import impulseResponse from './effects/impulse-response.js';
-import Fuzz from './effects/fuzz.js';
 
 const createGraph = (nodes, track) =>
   nodes.reduce((acc, node) => acc.connect(node), track);
@@ -18,23 +12,24 @@ export default async function initialize() {
 
   const track = createTrack(audioContext, audioElement);
 
-  const convolver = await impulseResponse(audioContext);
+  // const convolver = await impulseResponse(audioContext);
   const analyser = audioContext.createAnalyser();
 
-  const delayNode = Delay(audioContext);
-  const distortionNode = Distortion(audioContext);
+  // const delayNode = Delay(audioContext);
+  // const distortionNode = Distortion(audioContext);
+  const { Fuzz } = Effects;
   const fuzzNodes = Fuzz(audioContext, track);
 
-  const preAmpGainNode = Gain(audioContext);
-  const postAmpGainNode = Gain(audioContext, { gain: 2 });
-  const reverbNode = await Reverb(audioContext);
-  const compressorNode = await Compressor(audioContext, {
-    threshold: -40,
-    knee: 30,
-    attack: 1,
-    release: 1,
-    ratio: 15,
-  });
+  // const preAmpGainNode = Gain(audioContext);
+  // const postAmpGainNode = Gain(audioContext, { gain: 2 });
+  // const reverbNode = await Reverb(audioContext);
+  // const compressorNode = await Compressor(audioContext, {
+  //   threshold: -40,
+  //   knee: 30,
+  //   attack: 1,
+  //   release: 1,
+  //   ratio: 15,
+  // });
 
   const nodes = [
     // preAmpGainNode,

@@ -1,4 +1,4 @@
-export default async function impulseResponse(context) {
+export default async function ImpulseResponse(context) {
   const convolver = new ConvolverNode(context);
 
   const response = await fetch(
