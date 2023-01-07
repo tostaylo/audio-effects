@@ -1,5 +1,7 @@
 import { GRAPH } from '../actions';
 
+// TODO: Rename to SignalChain Reducer
+
 function graphReducer(graph = [], action) {
   switch (action.type) {
     case GRAPH.CONNECT:

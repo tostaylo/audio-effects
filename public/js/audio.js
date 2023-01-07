@@ -1,122 +1,87 @@
-import DOM from './dom/dom.js';
+// import DOM from './dom/dom.js';
 import * as Effects from './effects/index';
 import createTrack from './track.js';
-import { createTrackGraph } from './graph/track';
-import waveformVisualizer from './dom/visualizer.js';
-import { audioGraphNode } from './graph/index';
-import { GRAPH } from './actions/index';
-import graphStore from './stores/graph';
+// import { createTrackGraph } from './graph/track';
+// import waveformVisualizer from './dom/visualizer.js';
+// import { audioGraphNode } from './graph/index';
+// import { GRAPH } from './actions/index';
+// import graphStore from './stores/graph';
 
-let num = 0;
+// let num = 0;
 let track;
+let signalChain = [];
+let audioContext;
 
 export default async function initialize() {
-  const audioContext = new AudioContext();
+  // const analyser = audioContext.createAnalyser();
+  audioContext = new AudioContext();
   const audioElement = document.querySelector('audio');
-
   track = createTrack(audioContext, audioElement);
-
-  const analyser = audioContext.createAnalyser();
 
   // audioEffectNode rename maybe
   // does gain have to be the first in the graph for distortion to work?
-  const gainNodes = Effects.Gain(audioContext, { gain: 20 });
+  // const gainNodes = Effects.Gain(audioContext, { gain: 20 });
 
-  const gainNode = audioGraphNode({ type: 'Gain', nodes: gainNodes }, 0);
+  // const gainNode = audioGraphNode({ type: 'Gain', nodes: gainNodes }, 0);
 
-  const connectGainNode = {
-    type: GRAPH.CONNECT,
-    node: gainNode,
-  };
+  // const connectGainNode = {
+  //   type: GRAPH.CONNECT,
+  //   node: gainNode,
+  // };
 
-  // getNodesOnClick(audioContext, track);
+  const createButton = document.getElementById('create');
+  createButton.addEventListener('click', () => {
+    const gainNodes = Effects.Gain(audioContext, { gain: 20 });
+    const webAudioGainNode = gainNodes[0];
+    signalChain.push(webAudioGainNode);
 
-  waveformVisualizer(analyser);
+    track.connect(webAudioGainNode);
+    webAudioGainNode.connect(audioContext.destination);
+    signalChain.push(audioContext.destination);
 
-  createTrackGraphFromStore(audioContext, analyser);
+    if (audioContext.state === 'suspended') {
+      audioContext.resume();
+    }
 
-  DOM({
-    // nodes,
-    createTrackGraph: () => {
-      graphStore.dispatch(connectGainNode);
-    },
-    audioContext,
-    audioElement,
+    audioElement.play();
   });
 
-  getNodesOnClick(audioContext, gainNodes, analyser);
+  const disconnectButton = document.getElementById('disconnect');
+  disconnectButton.addEventListener('click', () => {
+    signalChain[0].disconnect();
+    signalChain = [signalChain[signalChain.length - 1]];
+    console.log(signalChain);
+    track.connect(audioContext.destination);
+  });
+
+  const reconnectButton = document.getElementById('reconnect');
+  reconnectButton.addEventListener('click', () => {
+    const delayNodes = Effects.Delay(audioContext);
+    const webAudioDelayNode = delayNodes[0];
+
+    signalChain = [webAudioDelayNode, ...signalChain];
+    console.log(signalChain);
+    track.connect(webAudioDelayNode);
+    webAudioDelayNode.connect(audioContext.destination);
+  });
+
+  const stopButton = document.getElementById('stop');
+  stopButton.addEventListener('click', () => {
+    track.disconnect();
+  });
+
+  // waveformVisualizer(analyser);
+
+  // createTrackGraphFromStore(audioContext, analyser);
+
+  // DOM({
+  //   // nodes,
+  //   // createTrackGraph: () => {
+  //   //   graphStore.dispatch(connectGainNode);
+  //   // },
+  //   // audioContext,
+  //   // audioElement,
+  // });
 }
 
 initialize();
-
-function getNodesOnClick(audioContext, gainNodes, analyser) {
-  const input = document.getElementById('fuzz');
-  input.addEventListener('change', () => {
-    const effect = input.dataset.effect;
-    console.log('fuzz check');
-    // const fuzz = Effects.Fuzz(audioContext, track);
-    // const node = audioGraphNode({ type: effect, audioNode: fuzz }, 0);
-
-    // DistortionNodes[0].disconnect();
-
-    const distortionNodes = Effects.Distortion(audioContext);
-
-    const distortionNode = audioGraphNode(
-      { type: 'Distortion', nodes: distortionNodes },
-      1
-    );
-    const connectDistortionNode = {
-      type: GRAPH.CONNECT,
-      node: distortionNode,
-    };
-
-    graphStore.dispatch(connectDistortionNode);
-
-    if (input.checked) {
-      // const connect = {
-      //   type: GRAPH.CONNECT,
-      //   node,
-      // };
-      // graphStore.dispatch(connect);
-    } else {
-      // const disconnect = {
-      //   type: GRAPH.DISCONNECT,
-      //   node,
-      // };
-      // graphStore.dispatch(disconnect);
-    }
-  });
-}
-
-function createTrackGraphFromStore(audioContext, analyser) {
-  graphStore.subscribe(() => {
-    console.log(graphStore.getState());
-    const nodes = graphStore
-      .getState()
-      .reduce(
-        (accumulator, next) => [
-          ...accumulator,
-          ...Effects[next.type](audioContext, track),
-        ],
-        []
-      );
-
-    console.log(nodes);
-    console.log(graphStore.getState(), 'graph store get state');
-
-    // graphStore.getState()?[0].nodes?[0].disconnect();
-    // graphStore
-    //   .getState()
-    //   .reverse()
-    //   .forEach((audioGraphNode) =>
-    //     audioGraphNode.nodes.reverse().forEach((node) => node.disconnect())
-    //   );
-
-    if (num < 1) {
-      num = 1;
-      createTrackGraph([...nodes, analyser, audioContext.destination], track);
-    } else {
-      createTrackGraph([...nodes, audioContext.destination], track);
-    }
-  });
-}

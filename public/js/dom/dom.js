@@ -12,14 +12,12 @@ export default function DOM({
   //   (e) => handleGain(nodes[0], e.target.value),
   //   false
   // );
-
-  const createButton = document.getElementById('create');
-  createButton.addEventListener('click', () => {
-    createTrackGraph();
-
-    if (audioContext.state === 'suspended') {
-      audioContext.resume();
-    }
-    audioElement.play();
-  });
+  // const createButton = document.getElementById('create');
+  // createButton.addEventListener('click', () => {
+  //   // createTrackGraph();
+  //   if (audioContext.state === 'suspended') {
+  //     audioContext.resume();
+  //   }
+  //   audioElement.play();
+  // });
 }
