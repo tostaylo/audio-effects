@@ -2,7 +2,7 @@ export default function Distortion(audioContext, amount = 20) {
   const distortionFilter = audioContext.createWaveShaper();
   distortionFilter.curve = createDistortionCurve(amount);
 
-  return distortionFilter;
+  return [distortionFilter];
 }
 
 export function createDistortionCurve(amount = 20) {

@@ -1,8 +1,8 @@
-function audioGraphNode(node, pos) {
+function audioGraphNode(data, pos) {
   return {
     pos,
-    type: node?.type,
-    node,
+    type: data?.type,
+    nodes: data?.nodes,
   };
 }
 
