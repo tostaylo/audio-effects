@@ -31,6 +31,7 @@ export default async function initialize() {
 
   const createButton = document.getElementById('create');
   createButton.addEventListener('click', () => {
+    signalChain = [];
     const gainNodes = Effects.Gain(audioContext, { gain: 20 });
     const webAudioGainNode = gainNodes[0];
     signalChain.push(webAudioGainNode);
