@@ -1,3 +1,3 @@
-import graphReducer from './graph';
+import signalChainReducer from './signal-chain';
 
-export { graphReducer };
+export { signalChainReducer };

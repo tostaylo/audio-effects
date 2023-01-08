@@ -8,11 +8,12 @@ let track;
 let signalChain = [];
 let audioContext;
 let fixed = [];
+let audioElement;
 
 export default async function initialize() {
   audioContext = new AudioContext();
   const analyser = audioContext.createAnalyser();
-  const audioElement = document.querySelector('audio');
+  audioElement = document.querySelector('audio');
   track = createTrack(audioContext, audioElement);
   fixed = [analyser, audioContext.destination];
 
@@ -23,30 +24,30 @@ export default async function initialize() {
   // const gainNode = signalChainNode({ type: 'Gain', nodes: gainNodes }, 0);
 
   // const connectGainNode = {
-  //   type: GRAPH.CONNECT,
+  //   type: SIGNALCHAIN.CONNECT,
   //   node: gainNode,
   // };
 
-  const createButton = document.getElementById('create');
-  createButton.addEventListener('click', () => {
-    signalChain = [];
-
-    createSignalChain(fixed, track);
-
-    if (audioContext.state === 'suspended') {
-      audioContext.resume();
-    }
-
-    audioElement.play();
-  });
-
-  const stopButton = document.getElementById('stop');
-  stopButton.addEventListener('click', () => {
-    track.disconnect();
-  });
-
   waveformVisualizer(analyser);
 }
+
+const createButton = document.getElementById('create');
+createButton.addEventListener('click', () => {
+  signalChain = [];
+
+  createSignalChain(fixed, track);
+
+  if (audioContext.state === 'suspended') {
+    audioContext.resume();
+  }
+
+  audioElement.play();
+});
+
+const stopButton = document.getElementById('stop');
+stopButton.addEventListener('click', () => {
+  track.disconnect();
+});
 
 const domEffects = document.querySelectorAll('input[type=checkbox]');
 
@@ -55,37 +56,21 @@ domEffects.forEach((effect) => {
     track.disconnect();
 
     const { effect, active } = event.target.dataset;
-    if (active === 'false') {
-      console.log(effect);
-      const newNodes = await Effects[effect](audioContext);
-      console.log(newNodes, effect);
 
-      // const delayNodes = Effects.Delay(audioContext);
-      // const webAudioDelayNode = delayNodes[0];
+    if (active === 'false') {
+      console.log({ effect });
+      const newNodes = await Effects[effect](audioContext);
+      console.log({ newNodes });
 
       signalChain = [...newNodes, ...signalChain];
       console.log(signalChain);
-      // track.connect(webAudioDelayNode);
-      // webAudioDelayNode.connect(audioContext.destination);
-      // console.log(signalChain);
+
       createSignalChain([...signalChain, ...fixed], track);
-
-      // const gainNodes = Effects.Gain(audioContext);
-      // const webAudioGainNode = gainNodes[0];
-      // signalChain.push(webAudioGainNode);
-
-      // track.connect(webAudioGainNode);
-      // webAudioGainNode.connect(audioContext.destination);
-      // signalChain.push(audioContext.destination);
+      return;
+    } else {
+      // filter out signal chain for effect and then reconnect
     }
   });
 });
 
 initialize();
-
-//  const gainNodes = Effects.Gain(audioContext, { gain: 20 });
-//   const webAudioGainNode = gainNodes[0];
-//   signalChain.push(webAudioGainNode);
-
-//   track.connect(webAudioGainNode);
-//   webAudioGainNode.connect(audioContext.destination);

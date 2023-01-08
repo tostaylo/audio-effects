@@ -1,3 +1,3 @@
-import graphStore from './graph';
+import signalChainStore from './signal-chain';
 
-export { graphStore };
+export { signalChainStore };

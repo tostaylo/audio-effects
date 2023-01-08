@@ -1,6 +1,6 @@
 import { signalChainNode } from '../signal';
-import { GRAPH } from '../actions';
-import graphStore from './graph';
+import { SIGNALCHAIN } from '../actions';
+import signalChainStore from './signal-chain';
 
 const audioNodeNames = {
   reverb: 'reverb',
@@ -9,24 +9,24 @@ const audioNodeNames = {
   fuzz: 'fuzz',
 };
 
-describe('graphStore', () => {
+describe('signalChainStore', () => {
   test('given no audio nodes, should initalize to an empty array', () => {
-    expect(graphStore.getState()).toEqual([]);
+    expect(signalChainStore.getState()).toEqual([]);
   });
 
   test('given an empty store, when a CONNECT action is dispatched, should contain one audio node', () => {
     // arrange
     const gainNode = signalChainNode({ type: audioNodeNames.gain }, 0);
     const connect = {
-      type: GRAPH.CONNECT,
+      type: SIGNALCHAIN.CONNECT,
       node: gainNode,
     };
 
     // act
-    graphStore.dispatch(connect);
+    signalChainStore.dispatch(connect);
 
     // assert
-    expect(graphStore.getState()).toHaveLength(1);
-    expect(graphStore.getState()).toEqual([gainNode]);
+    expect(signalChainStore.getState()).toHaveLength(1);
+    expect(signalChainStore.getState()).toEqual([gainNode]);
   });
 });

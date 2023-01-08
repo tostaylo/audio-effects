@@ -1,3 +1,3 @@
-import GRAPH from './graph';
+import SIGNALCHAIN from './signal-chain';
 
-export { GRAPH };
+export { SIGNALCHAIN };
