@@ -1,4 +1,4 @@
-import { audioGraphNode } from '../graph';
+import { signalChainNode } from '../signal';
 import { GRAPH } from '../actions';
 import graphStore from './graph';
 
@@ -16,7 +16,7 @@ describe('graphStore', () => {
 
   test('given an empty store, when a CONNECT action is dispatched, should contain one audio node', () => {
     // arrange
-    const gainNode = audioGraphNode({ type: audioNodeNames.gain }, 0);
+    const gainNode = signalChainNode({ type: audioNodeNames.gain }, 0);
     const connect = {
       type: GRAPH.CONNECT,
       node: gainNode,

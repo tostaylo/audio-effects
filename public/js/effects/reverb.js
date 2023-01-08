@@ -6,5 +6,5 @@ export default async function Reverb(audioContext) {
 
   reverb.buffer = await audioContext.decodeAudioData(buffer);
 
-  return reverb;
+  return [reverb];
 }

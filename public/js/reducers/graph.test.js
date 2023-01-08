@@ -1,5 +1,5 @@
 import graphReducer from './graph.js';
-import { audioGraphNode } from '../graph';
+import { signalChainNode } from '../signal';
 import { GRAPH } from '../actions';
 
 const audioNodeNames = {
@@ -13,7 +13,7 @@ describe('graphReducer', () => {
   test('given initial empty graph we can connect one node', () => {
     // arrange
     const initialGraph = [];
-    const gainNode = audioGraphNode({ type: audioNodeNames.gain }, 0);
+    const gainNode = signalChainNode({ type: audioNodeNames.gain }, 0);
 
     // act
     const newGraph = graphReducer(initialGraph, {
@@ -29,10 +29,10 @@ describe('graphReducer', () => {
 
   test('given initial graph with one node we can connect another node', () => {
     // arrange
-    const gainNode = audioGraphNode({ type: audioNodeNames.gain }, 0);
+    const gainNode = signalChainNode({ type: audioNodeNames.gain }, 0);
     const initialGraph = [gainNode];
 
-    const reverbNode = audioGraphNode({ type: audioNodeNames.reverb }, 1);
+    const reverbNode = signalChainNode({ type: audioNodeNames.reverb }, 1);
 
     // act
     const newGraph = graphReducer(initialGraph, {
@@ -48,8 +48,8 @@ describe('graphReducer', () => {
 
   test('given initial graph with two nodes we can disconnect the correct node', () => {
     // arrange
-    const gainNode = audioGraphNode({ type: audioNodeNames.gain }, 0);
-    const reverbNode = audioGraphNode({ type: audioNodeNames.reverb }, 1);
+    const gainNode = signalChainNode({ type: audioNodeNames.gain }, 0);
+    const reverbNode = signalChainNode({ type: audioNodeNames.reverb }, 1);
 
     const initialGraph = [gainNode, reverbNode];
 
@@ -67,9 +67,12 @@ describe('graphReducer', () => {
 
   test('given initial graph with three nodes we can disconnect the correct node', () => {
     // arrange
-    const gainNode = audioGraphNode({ type: audioNodeNames.gain }, 0);
-    const reverbNode = audioGraphNode({ type: audioNodeNames.reverb }, 1);
-    const convolverNode = audioGraphNode({ type: audioNodeNames.convolver }, 2);
+    const gainNode = signalChainNode({ type: audioNodeNames.gain }, 0);
+    const reverbNode = signalChainNode({ type: audioNodeNames.reverb }, 1);
+    const convolverNode = signalChainNode(
+      { type: audioNodeNames.convolver },
+      2
+    );
 
     const initialGraph = [gainNode, reverbNode, convolverNode];
 

@@ -29,13 +29,11 @@
       <h1>FX</h1>
       <canvas id="visualizer"></canvas>
       <h2>Play some sounds!</h2>
-      <button id="create">Create</button>
-      <button id="disconnect">Disconnect</button>
-      <button id="reconnect">Reconnect</button>
+      <button id="create">Create Signal Chain</button>
       <button id="stop">Stop</button>
       <form>
         <div>
-          <label for="volume">
+          <!-- <label for="volume">
             Gain
             <input
               type="range"
@@ -45,10 +43,60 @@
               value="5"
               step="0.01"
             />
-          </label>
+          </label> -->
           <label for="fuzz">
             Fuzz
-            <input data-effect="Fuzz" type="checkbox" id="fuzz" />
+            <input
+              data-active="false"
+              data-effect="Fuzz"
+              type="checkbox"
+              id="fuzz"
+            />
+          </label>
+          <label for="gain">
+            Gain
+            <input
+              data-active="false"
+              data-effect="Gain"
+              type="checkbox"
+              id="gain"
+            />
+          </label>
+          <label for="reverb">
+            Reverb
+            <input
+              data-active="false"
+              data-effect="Reverb"
+              type="checkbox"
+              id="reverb"
+            />
+          </label>
+          <label for="compressor">
+            Compressor
+            <input
+              data-active="false"
+              data-effect="Compressor"
+              type="checkbox"
+              id="compressor"
+            />
+          </label>
+          <label for="delay">
+            Delay
+            <input
+              data-active="false"
+              data-effect="Delay"
+              type="checkbox"
+              id="delay"
+            />
+          </label>
+          <label for="distortion">
+            Distortion
+            <input
+              data-active="false"
+              data-effect="Distortion"
+              type="checkbox"
+              id="distortion"
+            />
           </label>
         </div>
       </form>

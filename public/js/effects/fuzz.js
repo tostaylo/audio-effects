@@ -26,5 +26,5 @@ export default function Fuzz(audioContext) {
 
   const distortion = Distortion(audioContext, 100);
 
-  return [preGain, lowPassFilter, distortion, postGain];
+  return [preGain, lowPassFilter, ...distortion, postGain];
 }

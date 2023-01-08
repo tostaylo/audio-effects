@@ -1,7 +1,7 @@
-export default function Delay(audioContext, delay = 0.5) {
-  const delayNode = audioContext.createDelay(delay);
+export default function Delay(audioContext, delay = 5.0) {
+  const delayNode = audioContext.createDelay();
 
-  delayNode.delayTime.value = 0.5;
+  delayNode.delayTime.value = delay;
 
   return [delayNode];
 }

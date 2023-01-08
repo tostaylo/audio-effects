@@ -16,5 +16,5 @@ export default function Compressor(audioContext, options = defaultOptions) {
   compressor.release.setValueAtTime(options.release, currentTime);
   compressor.ratio.setValueAtTime(options.ratio, currentTime);
 
-  return compressor;
+  return [compressor];
 }
