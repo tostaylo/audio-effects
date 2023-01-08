@@ -10,62 +10,62 @@ const audioNodeNames = {
 };
 
 describe('signalChainReducer', () => {
-  test('given initial empty signalChain we can connect one node', () => {
+  test('given initial empty graph we can connect one node', () => {
     // arrange
-    const initialsignalChain = [];
+    const initialGraph = [];
     const gainNode = signalChainNode({ type: audioNodeNames.gain }, 0);
 
     // act
-    const newsignalChain = signalChainReducer(initialsignalChain, {
+    const newGraph = signalChainReducer(initialGraph, {
       type: SIGNALCHAIN.CONNECT,
       node: gainNode,
     });
 
     // assert
-    expect(newsignalChain).toHaveLength(1);
-    expect(newsignalChain[0].type).toBe(audioNodeNames.gain);
-    expect(newsignalChain[0].pos).toEqual(0);
+    expect(newGraph).toHaveLength(1);
+    expect(newGraph[0].type).toBe(audioNodeNames.gain);
+    expect(newGraph[0].pos).toEqual(0);
   });
 
-  test('given initial signalChain with one node we can connect another node', () => {
+  test('given initial graph with one node we can connect another node', () => {
     // arrange
     const gainNode = signalChainNode({ type: audioNodeNames.gain }, 0);
-    const initialsignalChain = [gainNode];
+    const initialGraph = [gainNode];
 
     const reverbNode = signalChainNode({ type: audioNodeNames.reverb }, 1);
 
     // act
-    const newsignalChain = signalChainReducer(initialsignalChain, {
+    const newGraph = signalChainReducer(initialGraph, {
       type: SIGNALCHAIN.CONNECT,
       node: reverbNode,
     });
 
     // assert
-    expect(newsignalChain).toHaveLength(2);
-    expect(newsignalChain[0].pos).toEqual(0);
-    expect(newsignalChain[1].pos).toEqual(1);
+    expect(newGraph).toHaveLength(2);
+    expect(newGraph[0].pos).toEqual(0);
+    expect(newGraph[1].pos).toEqual(1);
   });
 
-  test('given initial signalChain with two nodes we can disconnect the correct node', () => {
+  test('given initial graph with two nodes we can disconnect the correct node', () => {
     // arrange
     const gainNode = signalChainNode({ type: audioNodeNames.gain }, 0);
     const reverbNode = signalChainNode({ type: audioNodeNames.reverb }, 1);
 
-    const initialsignalChain = [gainNode, reverbNode];
+    const initialGraph = [gainNode, reverbNode];
 
     // act
-    const newsignalChain = signalChainReducer(initialsignalChain, {
+    const newGraph = signalChainReducer(initialGraph, {
       type: SIGNALCHAIN.DISCONNECT,
       node: gainNode,
     });
 
     // assert
-    expect(newsignalChain).toHaveLength(1);
-    expect(newsignalChain[0].type).toBe(audioNodeNames.reverb);
-    expect(newsignalChain[0].pos).toEqual(0);
+    expect(newGraph).toHaveLength(1);
+    expect(newGraph[0].type).toBe(audioNodeNames.reverb);
+    expect(newGraph[0].pos).toEqual(0);
   });
 
-  test('given initial signalChain with three nodes we can disconnect the correct node', () => {
+  test('given initial graph with three nodes we can disconnect the correct node', () => {
     // arrange
     const gainNode = signalChainNode({ type: audioNodeNames.gain }, 0);
     const reverbNode = signalChainNode({ type: audioNodeNames.reverb }, 1);
@@ -74,19 +74,19 @@ describe('signalChainReducer', () => {
       2
     );
 
-    const initialsignalChain = [gainNode, reverbNode, convolverNode];
+    const initialGraph = [gainNode, reverbNode, convolverNode];
 
     // act
-    const newsignalChain = signalChainReducer(initialsignalChain, {
+    const newGraph = signalChainReducer(initialGraph, {
       type: SIGNALCHAIN.DISCONNECT,
       node: reverbNode,
     });
 
     // assert
-    expect(newsignalChain).toHaveLength(2);
-    expect(newsignalChain[0].type).toBe(audioNodeNames.gain);
-    expect(newsignalChain[1].type).toBe('convolver');
-    expect(newsignalChain[0].pos).toEqual(0);
-    expect(newsignalChain[1].pos).toEqual(1);
+    expect(newGraph).toHaveLength(2);
+    expect(newGraph[0].type).toBe(audioNodeNames.gain);
+    expect(newGraph[1].type).toBe('convolver');
+    expect(newGraph[0].pos).toEqual(0);
+    expect(newGraph[1].pos).toEqual(1);
   });
 });
