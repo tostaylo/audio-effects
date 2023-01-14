@@ -2,7 +2,11 @@
 import * as Effects from './effects/index';
 import createTrack from './track.js';
 import waveformVisualizer from './dom/visualizer.js';
-import { createSignalChain, modifySignalChain } from './signal/chain';
+import {
+  createSignalChain,
+  modifySignalChain,
+  disconnectSignalChain,
+} from './signal/chain';
 import { signalChainNode } from './signal';
 import { SIGNALCHAIN } from './actions';
 import signalChainStore from './stores/signal-chain';
@@ -26,7 +30,7 @@ const createButton = document.getElementById('create');
 createButton.addEventListener('click', () => {
   // TODO: empty store
 
-  createSignalChain(fixed, track);
+  createSignalChain({ nodes: fixed, track });
 
   if (audioContext.state === 'suspended') {
     audioContext.resume();
@@ -46,13 +50,8 @@ domEffects.forEach((effect) => {
   effect.addEventListener('change', async (event) => {
     // track.disconnect();
     // disconnect everything.
-    const reversedStore = [...signalChainStore.getState()].reverse();
-    const reversedFixed = [...fixed].reverse();
-    [...reversedFixed].forEach((node) => node.disconnect());
-    [...reversedStore].forEach((node) => {
-      const reversed = [...node.nodes].reverse();
-      reversed.forEach((node) => node.disconnect());
-    });
+    // this seems to work better
+    disconnectSignalChain({ signalChainStore, fixed });
 
     const { effect, active, pos, id } = event.target.dataset;
 
@@ -71,14 +70,7 @@ domEffects.forEach((effect) => {
 
       signalChainStore.dispatch(connect);
 
-      modifySignalChain({
-        track,
-        fixed,
-        signalChain: signalChainStore.getState(),
-      });
-
       event.target.dataset.active = 'true';
-      event.target.dataset.pos = position;
 
       return;
     } else {
@@ -89,23 +81,28 @@ domEffects.forEach((effect) => {
 
       signalChainStore.dispatch(disconnect);
 
-      modifySignalChain({
-        track,
-        fixed,
-        signalChain: signalChainStore.getState(),
-      });
-
       event.target.dataset.active = 'false';
       event.target.dataset.pos = '';
-
-      signalChainStore.getState().forEach((storeEffect) => {
-        document.querySelector(`[data-id=${storeEffect.id}]`).dataset.pos =
-          storeEffect.pos;
-      });
-
-      console.log({ store: signalChainStore.getState() });
     }
   });
+});
+
+function syncDomWithStore(store) {
+  store.forEach((storeEffect) => {
+    document.querySelector(`[data-id=${storeEffect.id}]`).dataset.pos =
+      storeEffect.pos;
+  });
+}
+
+signalChainStore.subscribe(() => {
+  modifySignalChain({
+    track,
+    fixed,
+    signalChain: signalChainStore.getState(),
+  });
+
+  syncDomWithStore(signalChainStore.getState());
+  console.log({ store: signalChainStore.getState() });
 });
 
 initialize();
