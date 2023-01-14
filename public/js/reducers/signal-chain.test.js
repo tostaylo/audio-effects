@@ -56,7 +56,7 @@ describe('signalChainReducer', () => {
     // act
     const newGraph = signalChainReducer(initialGraph, {
       type: SIGNALCHAIN.DISCONNECT,
-      node: gainNode,
+      pos: 0,
     });
 
     // assert
@@ -79,7 +79,7 @@ describe('signalChainReducer', () => {
     // act
     const newGraph = signalChainReducer(initialGraph, {
       type: SIGNALCHAIN.DISCONNECT,
-      node: reverbNode,
+      pos: 1,
     });
 
     // assert

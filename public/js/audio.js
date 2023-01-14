@@ -54,24 +54,22 @@ domEffects.forEach((effect) => {
       reversed.forEach((node) => node.disconnect());
     });
 
-    const { effect, active, pos } = event.target.dataset;
+    const { effect, active, pos, id } = event.target.dataset;
 
     if (active === 'false') {
-      console.log({ effect });
       const newNodes = await Effects[effect](audioContext);
-      console.log({ newNodes });
-
       const position = signalChainStore.getState().length;
 
-      const node = signalChainNode({ type: effect, nodes: newNodes }, position);
+      const node = signalChainNode(
+        { id, type: effect, nodes: newNodes },
+        position
+      );
       const connect = {
         type: SIGNALCHAIN.CONNECT,
         node,
       };
 
       signalChainStore.dispatch(connect);
-
-      console.log({ store: signalChainStore.getState() });
 
       modifySignalChain({
         track,
@@ -81,13 +79,12 @@ domEffects.forEach((effect) => {
 
       event.target.dataset.active = 'true';
       event.target.dataset.pos = position;
+
       return;
     } else {
-      console.log({ pos });
-      const node = signalChainNode({ type: effect, nodes: [] }, Number(pos));
       const disconnect = {
         type: SIGNALCHAIN.DISCONNECT,
-        node,
+        pos: Number(pos),
       };
 
       signalChainStore.dispatch(disconnect);
@@ -100,6 +97,13 @@ domEffects.forEach((effect) => {
 
       event.target.dataset.active = 'false';
       event.target.dataset.pos = '';
+
+      signalChainStore.getState().forEach((storeEffect) => {
+        document.querySelector(`[data-id=${storeEffect.id}]`).dataset.pos =
+          storeEffect.pos;
+      });
+
+      console.log({ store: signalChainStore.getState() });
     }
   });
 });

@@ -12,7 +12,7 @@ function signalChainReducer(signalChain = [], action) {
       ];
     case SIGNALCHAIN.DISCONNECT:
       return signalChain
-        .filter((node) => node.pos !== action.node.pos)
+        .filter((node) => node.pos !== action.pos)
         .map((node, idx) => ({ ...node, pos: idx }));
     default:
       return signalChain;
