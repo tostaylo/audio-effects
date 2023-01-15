@@ -4,14 +4,19 @@
     "es2021": true,
     "jest": true
   },
-  "extends": "eslint:recommended",
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
   "overrides": [],
   "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
+  "plugins": ["react"],
   "rules": {
     "no-duplicate-imports": 1,
-    "no-unreachable-loop": 1
+    "no-unreachable-loop": 1,
+    "react/react-in-jsx-scope": 0
   }
 }

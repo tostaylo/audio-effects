@@ -6,7 +6,8 @@
     "@cloudflare/kv-asset-handler": "^0.2.0",
     "@types/jest": "^29.0.1",
     "esbuild": "^0.15.6",
-    "eslint": "^8.23.0",
+    "eslint": "^8.31.0",
+    "eslint-plugin-react": "^7.32.0",
     "husky": "^8.0.1",
     "jest": "^29.0.3",
     "lint-staged": "^13.0.3",
@@ -15,7 +16,7 @@
   },
   "private": true,
   "scripts": {
-    "build:dev": "esbuild public/js/audio.js --bundle --outfile=public/js/out.js --watch",
+    "build:dev": "esbuild src/index.jsx --jsx-factory=h --jsx-fragment=Fragment --bundle --outfile=public/js/out.js --watch",
     "eslint": "eslint .",
     "lint": "lint-staged",
     "prepare": "husky install",
@@ -28,6 +29,7 @@
     "transform": {}
   },
   "dependencies": {
+    "preact": "^10.11.3",
     "redux": "^4.2.0"
   }
 }

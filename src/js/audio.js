@@ -104,5 +104,3 @@ signalChainStore.subscribe(() => {
   syncDomWithStore(signalChainStore.getState());
   console.log({ store: signalChainStore.getState() });
 });
-
-initialize();
