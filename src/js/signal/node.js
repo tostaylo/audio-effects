@@ -1,8 +1,8 @@
-function signalChainNode(data, pos) {
+function signalChainNode({ id, type, nodes }, pos) {
   return {
-    id: data?.id,
-    type: data?.type,
-    nodes: data?.nodes,
+    id,
+    type,
+    nodes,
     pos,
   };
 }
