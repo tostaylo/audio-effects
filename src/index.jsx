@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import { render, h } from 'preact';
 import initialize from './js/audio';
 

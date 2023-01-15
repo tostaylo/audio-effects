@@ -17,6 +17,12 @@
   "rules": {
     "no-duplicate-imports": 1,
     "no-unreachable-loop": 1,
-    "react/react-in-jsx-scope": 0
+    "react/react-in-jsx-scope": 0,
+    "no-unused-vars": [
+      "error",
+      {
+        "varsIgnorePattern": "^h$" //ignore h imports from preact
+      }
+    ]
   }
 }
