@@ -13,7 +13,17 @@ export function Effect({ id, name }) {
   });
 
   return (
-    <div style={{ border: '1px solid red' }} className="effect" ref={dragRef}>
+    <div
+      style={{
+        border: '1px solid black',
+        borderRadius: '5px',
+        margin: '5px',
+        display: 'inline-block',
+        padding: '5px',
+      }}
+      className="effect"
+      ref={dragRef}
+    >
       {name}
       {isDragging && '😱'}
     </div>
