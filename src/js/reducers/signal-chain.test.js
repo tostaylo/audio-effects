@@ -59,17 +59,15 @@ describe('signalChainReducer', () => {
     // assert
     expect(newGraph).toHaveLength(1);
     expect(newGraph[0].type).toBe(signalChainNodes.reverb().type);
-    expect(newGraph[0].pos).toEqual(0);
+    expect(newGraph[0].pos).toEqual(1);
   });
 
   test('given initial graph with three nodes we can disconnect the correct node', () => {
     // arrange
+    const gainNode = signalChainNodes.gain(0);
+    const convolverNode = signalChainNodes.convolver(2);
 
-    const initialGraph = [
-      signalChainNodes.gain(0),
-      signalChainNodes.reverb(1),
-      signalChainNodes.convolver(2),
-    ];
+    const initialGraph = [gainNode, signalChainNodes.reverb(1), convolverNode];
 
     // act
     const newGraph = signalChainReducer(initialGraph, {
@@ -79,9 +77,9 @@ describe('signalChainReducer', () => {
 
     // assert
     expect(newGraph).toHaveLength(2);
-    expect(newGraph[0].type).toBe(signalChainNodes.gain().type);
-    expect(newGraph[1].type).toBe('convolver');
-    expect(newGraph[0].pos).toEqual(0);
-    expect(newGraph[1].pos).toEqual(1);
+    expect(newGraph[0].type).toBe(gainNode.type);
+    expect(newGraph[1].type).toBe(convolverNode.type);
+    expect(newGraph[0].pos).toEqual(gainNode.pos);
+    expect(newGraph[1].pos).toEqual(convolverNode.pos);
   });
 });

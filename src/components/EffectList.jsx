@@ -2,17 +2,25 @@ import { h } from 'preact';
 import { Effect } from './Effect';
 
 const EFFECTS = [
-  { id: 1, name: 'fuzz' },
-  { id: 2, name: 'delay' },
-  { id: 3, name: 'distortion' },
-  { id: 4, name: 'reverb' },
+  {
+    id: 'fuzz-3r3r3',
+    type: 'Fuzz',
+  },
+  {
+    id: 'gain-3444r3',
+    type: 'Gain',
+  },
+  {
+    id: 'reverb-3939',
+    type: 'Reverb',
+  },
 ];
 
 export function EffectList() {
   return (
     <div className="effects">
-      {EFFECTS.map((effect) => (
-        <Effect key={effect.id} draggable id={effect.id} name={effect.name} />
+      {EFFECTS.map(({ id, type }) => (
+        <Effect key={id} id={id} draggable type={type} />
       ))}
     </div>
   );

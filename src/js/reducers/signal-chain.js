@@ -1,19 +1,26 @@
+/* eslint-disable no-case-declarations */
 import { SIGNALCHAIN } from '../actions';
 
-// TODO: Rename to SignalChain Reducer
+function sortByPositionAsc(signalChain) {
+  return [...signalChain].sort((a, b) => a.pos - b.pos);
+}
 
 function signalChainReducer(signalChain = [], action) {
   switch (action.type) {
     case SIGNALCHAIN.CONNECT:
-      return [
+      const newLongerChain = [
         ...signalChain.slice(0, action.node.pos),
         action.node,
         ...signalChain.slice(action.node.pos),
       ];
+
+      return sortByPositionAsc(newLongerChain);
     case SIGNALCHAIN.DISCONNECT:
-      return signalChain
+      const filteredChain = signalChain
         .filter((node) => node.pos !== action.pos)
-        .map((node, idx) => ({ ...node, pos: idx }));
+        .map((node) => ({ ...node, pos: node.pos }));
+
+      return sortByPositionAsc(filteredChain);
     default:
       return signalChain;
   }

@@ -5,13 +5,15 @@ import { SignalChain } from './components/SignalChain';
 import { EffectList } from './components/EffectList';
 import initialize from './js/audio';
 
-initialize();
+initialize()
+  .then(({ audioContext, fixed }) => {
+    const App = (
+      <DndProvider backend={HTML5Backend}>
+        <EffectList />
+        <SignalChain audioContext={audioContext} fixed={fixed} />
+      </DndProvider>
+    );
 
-const App = (
-  <DndProvider backend={HTML5Backend}>
-    <EffectList />
-    <SignalChain />
-  </DndProvider>
-);
-
-render(App, document.getElementById('root'));
+    render(App, document.getElementById('root'));
+  })
+  .catch((error) => console.error(error));

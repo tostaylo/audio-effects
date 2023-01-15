@@ -3,10 +3,10 @@ import { useDrag } from 'react-dnd';
 
 export const EffectDragType = 'effect';
 
-export function Effect({ id, name }) {
+export function Effect({ id, type, onClose }) {
   const [{ isDragging }, dragRef] = useDrag({
     type: EffectDragType,
-    item: { id, name },
+    item: { id, type },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
@@ -24,8 +24,9 @@ export function Effect({ id, name }) {
       className="effect"
       ref={dragRef}
     >
-      {name}
+      {type}
       {isDragging && '😱'}
+      {onClose && <button onClick={onClose}>X</button>}
     </div>
   );
 }

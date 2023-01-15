@@ -16,7 +16,7 @@ let audioContext;
 let fixed = [];
 let audioElement;
 
-export default async function initialize() {
+async function initialize() {
   audioContext = new AudioContext();
   const analyser = audioContext.createAnalyser();
   audioElement = document.querySelector('audio');
@@ -24,6 +24,8 @@ export default async function initialize() {
   fixed = [analyser, audioContext.destination];
 
   waveformVisualizer(analyser);
+
+  return { audioContext, fixed };
 }
 
 const createButton = document.getElementById('create');
@@ -89,12 +91,17 @@ domEffects.forEach((effect) => {
 
 function syncDomWithStore(store) {
   store.forEach((storeEffect) => {
-    document.querySelector(`[data-id=${storeEffect.id}]`).dataset.pos =
-      storeEffect.pos;
+    const el = document.querySelector(`[data-id=${storeEffect.id}]`);
+    if (!el) {
+      console.error('no element with this data-id');
+      return;
+    }
+    el.dataset.pos = storeEffect.pos;
   });
 }
 
 signalChainStore.subscribe(() => {
+  console.log({ store: signalChainStore.getState() }, 'store has changed');
   modifySignalChain({
     track,
     fixed,
@@ -102,5 +109,6 @@ signalChainStore.subscribe(() => {
   });
 
   syncDomWithStore(signalChainStore.getState());
-  console.log({ store: signalChainStore.getState() });
 });
+
+export { initialize as default };
