@@ -29,7 +29,12 @@
     "transform": {}
   },
   "dependencies": {
+    "@preact/compat": "^17.1.2",
     "preact": "^10.11.3",
+    "react": "npm:@preact/compat",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
+    "react-dom": "npm:@preact/compat",
     "redux": "^4.2.0"
   }
 }
