@@ -1,7 +1,7 @@
 import { signalChainStore } from '.';
 import { h, createContext } from 'preact';
 import { useEffect, useState, useContext } from 'preact/hooks';
-import { modifySignalChain } from '../signal/chain';
+import { SignalChainOperator } from '../signal/chain';
 
 function completeSignalChain({ store, fixed }) {
   return [...store, ...fixed];
@@ -29,7 +29,7 @@ export function SignalChainProvider({ children, track, fixed }) {
     signalChainStore.subscribe(() => {
       const newStore = signalChainStore.getState();
       const signalChain = completeSignalChain({ store: newStore, fixed });
-      modifySignalChain({
+      SignalChainOperator.modify({
         track,
         signalChain,
       });

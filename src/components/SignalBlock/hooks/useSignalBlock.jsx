@@ -1,14 +1,14 @@
 import { h } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 import { useDrop } from 'react-dnd';
-import { Effect, EffectDragType } from './Effect';
-import * as Effects from '../effects/index';
-import { SignalChainOperator } from '../signal/chain';
-import { signalChainNode } from '../signal';
-import { SIGNALCHAIN } from '../actions';
-import { useSignalChainStore } from '../stores/SignalChainProvider';
+import { EffectDragType } from '../../Effect';
+import * as Effects from '../../../effects/index';
+import { SignalChainOperator } from '../../../signal/chain';
+import { signalChainNode } from '../../../signal';
+import { SIGNALCHAIN } from '../../../actions';
+import { useSignalChainStore } from '../../../stores/SignalChainProvider';
 
-export function SignalBlock({ position, audioContext }) {
+export function useSignalBlock({ audioContext, position }) {
   const { store, dispatch } = useSignalChainStore();
 
   const [basket, setBasket] = useState([]);
@@ -63,26 +63,5 @@ export function SignalBlock({ position, audioContext }) {
     }
   }, [basket.length, active]);
 
-  return (
-    <div
-      className={`border-solid border-2 border-sky-${
-        !isOver && !basket.length ? '500' : '100'
-      } p-5 rounded-lg`}
-      ref={dropRef}
-    >
-      {basket.map(({ id, type }) => (
-        <Effect
-          key={id}
-          id={id}
-          type={type}
-          onClose={() => {
-            setBasket([]);
-          }}
-        />
-      ))}
-      {!basket.length && (
-        <span className={isOver ? 'opacity-0' : ''}>empty block</span>
-      )}
-    </div>
-  );
+  return { basket, setBasket, DnDProps: { isOver, dropRef } };
 }
