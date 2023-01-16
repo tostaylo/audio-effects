@@ -11,7 +11,7 @@ function modifySignalChain({ track, fixed, signalChain }) {
 }
 
 function disconnectSignalChain({ signalChainStore, fixed }) {
-  const reversedStore = [...signalChainStore.getState()].reverse();
+  const reversedStore = [...signalChainStore].reverse();
   const reversedFixed = [...fixed].reverse();
   [...reversedFixed].forEach((node) => node.disconnect());
   [...reversedStore].forEach((node) => {

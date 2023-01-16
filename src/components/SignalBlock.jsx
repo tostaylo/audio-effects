@@ -6,9 +6,11 @@ import * as Effects from '../effects/index';
 import { disconnectSignalChain } from '../signal/chain';
 import { signalChainNode } from '../signal';
 import { SIGNALCHAIN } from '../actions';
-import signalChainStore from '../stores/signal-chain';
+import { useSignalChainStore } from '../stores/SignalChainProvider';
 
 export function SignalBlock({ position, fixed, audioContext }) {
+  const { store, dispatch } = useSignalChainStore();
+
   const [basket, setBasket] = useState([]);
   const [{ isOver }, dropRef] = useDrop({
     accept: EffectDragType,
@@ -23,12 +25,11 @@ export function SignalBlock({ position, fixed, audioContext }) {
 
   useEffect(() => {
     async function connectSignal() {
-      disconnectSignalChain({ signalChainStore, fixed });
+      disconnectSignalChain({ signalChainStore: store, fixed });
 
       const { type, id } = basket[0];
 
       const newNodes = await Effects[type](audioContext);
-      // const newposition = signalChainStore.getState().length;
 
       const node = signalChainNode({ id, type, nodes: newNodes }, position);
       const connect = {
@@ -36,18 +37,18 @@ export function SignalBlock({ position, fixed, audioContext }) {
         node,
       };
 
-      signalChainStore.dispatch(connect);
+      dispatch(connect);
     }
 
     function disconnectSignal() {
-      disconnectSignalChain({ signalChainStore, fixed });
+      disconnectSignalChain({ signalChainStore: store, fixed });
 
       const disconnect = {
         type: SIGNALCHAIN.DISCONNECT,
         pos: Number(position),
       };
 
-      signalChainStore.dispatch(disconnect);
+      dispatch(disconnect);
     }
 
     // TODO: Possible bug calling these on mount
@@ -57,7 +58,7 @@ export function SignalBlock({ position, fixed, audioContext }) {
       disconnectSignal();
     }
   }, [basket.length]);
-
+  console.log('this fires on context update');
   return (
     <div
       style={{

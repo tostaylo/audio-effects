@@ -1,7 +1,5 @@
 import createTrack from './track.js';
 import waveformVisualizer from './dom/visualizer.js';
-import { modifySignalChain } from './signal/chain';
-import signalChainStore from './stores/signal-chain';
 
 let track;
 let audioContext;
@@ -19,14 +17,5 @@ async function initialize() {
 
   return { audioContext, fixed, track, audioElement };
 }
-
-signalChainStore.subscribe(() => {
-  console.log({ store: signalChainStore.getState() }, 'store has changed');
-  modifySignalChain({
-    track,
-    fixed,
-    signalChain: signalChainStore.getState(),
-  });
-});
 
 export { initialize as default };

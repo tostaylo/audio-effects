@@ -1,6 +1,6 @@
 import { h } from 'preact';
 import { Button } from './Button';
-import { createSignalChain } from '../js/signal/chain';
+import { createSignalChain } from '../signal/chain';
 
 function startAudio({ audioContext, audioElement, fixed, track }) {
   // TODO: empty store
@@ -19,6 +19,7 @@ function stopAudio({ track }) {
 }
 
 export function StartStopAudio({ audioElement, audioContext, fixed, track }) {
+  console.log('should not fire if context is updated');
   return (
     <div>
       <Button
