@@ -1,5 +1,12 @@
+// some nodes have a nodes property which is the reason for the conditionals
 const createSignalChain = ({ nodes, track }) =>
-  nodes.reduce((acc, node) => acc.connect(node), track);
+  nodes.reduce(
+    (acc, node) =>
+      node.nodes
+        ? createSignalChain({ nodes: node.nodes, track })
+        : acc.connect(node),
+    track
+  );
 
 function modifySignalChain({ track, signalChain }) {
   const nodes = signalChain.reduce(
@@ -10,8 +17,8 @@ function modifySignalChain({ track, signalChain }) {
   createSignalChain({ nodes, track });
 }
 
-function disconnectSignalChain({ signalChainStore }) {
-  const reversedStore = [...signalChainStore].reverse();
+function disconnectSignalChain({ signalChain }) {
+  const reversedStore = [...signalChain].reverse();
   [...reversedStore].forEach((node) => {
     if (node.nodes) {
       const reversed = [...node.nodes].reverse();

@@ -1,11 +1,10 @@
 import { h } from 'preact';
+import { useState } from 'preact/hooks';
 import { Button } from './Button';
 import { createSignalChain } from '../signal/chain';
 import { useSignalChainStore } from '../stores/SignalChainProvider';
 
 function startAudio({ audioContext, audioElement, signalChain, track }) {
-  // TODO: empty store
-
   createSignalChain({ nodes: signalChain, track });
 
   if (audioContext.state === 'suspended') {
@@ -15,23 +14,36 @@ function startAudio({ audioContext, audioElement, signalChain, track }) {
   audioElement.play();
 }
 
-function stopAudio({ track }) {
-  track.disconnect();
-}
-
 export function StartStopAudio({ audioElement, audioContext, track }) {
   const { store } = useSignalChainStore();
+  const [isPlaying, setPlaying] = useState(false);
+
   return (
     <div>
-      <Button
-        onClick={() =>
-          startAudio({ audioContext, audioElement, signalChain: store, track })
-        }
-      >
-        Start Audio
-      </Button>
-
-      <Button onClick={() => stopAudio({ track })}>Stop Audio</Button>
+      {!isPlaying ? (
+        <Button
+          onClick={() => {
+            startAudio({
+              audioContext,
+              audioElement,
+              signalChain: store,
+              track,
+            });
+            setPlaying(true);
+          }}
+        >
+          Start Audio
+        </Button>
+      ) : (
+        <Button
+          onClick={() => {
+            audioContext.suspend();
+            setPlaying(false);
+          }}
+        >
+          Stop Audio
+        </Button>
+      )}
     </div>
   );
 }

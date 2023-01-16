@@ -12,12 +12,17 @@ export function SignalBlock({ position, audioContext }) {
   const { store, dispatch } = useSignalChainStore();
 
   const [basket, setBasket] = useState([]);
+  const [active, setActive] = useState(false);
+
   const [{ isOver }, dropRef] = useDrop({
     accept: EffectDragType,
-    drop: (item) =>
-      setBasket((basket) =>
+    drop: (item) => {
+      setActive(true);
+      return setBasket((basket) =>
         !basket.includes(item) ? [...basket, item] : basket
-      ),
+      );
+    },
+
     collect: (monitor) => ({
       isOver: monitor.isOver(),
     }),
@@ -25,7 +30,7 @@ export function SignalBlock({ position, audioContext }) {
 
   useEffect(() => {
     async function connectSignal() {
-      disconnectSignalChain({ signalChainStore: store });
+      disconnectSignalChain({ signalChain: store });
 
       const { type, id } = basket[0];
 
@@ -41,7 +46,7 @@ export function SignalBlock({ position, audioContext }) {
     }
 
     function disconnectSignal() {
-      disconnectSignalChain({ signalChainStore: store });
+      disconnectSignalChain({ signalChain: store });
 
       const disconnect = {
         type: SIGNALCHAIN.DISCONNECT,
@@ -51,13 +56,13 @@ export function SignalBlock({ position, audioContext }) {
       dispatch(disconnect);
     }
 
-    // TODO: Possible bug calling these on mount
     if (basket.length) {
       connectSignal();
-    } else {
+    } else if (!basket.length && active) {
+      console.log('disconnection');
       disconnectSignal();
     }
-  }, [basket.length]);
+  }, [basket.length, active]);
 
   return (
     <div
