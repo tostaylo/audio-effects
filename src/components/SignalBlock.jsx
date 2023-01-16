@@ -80,7 +80,7 @@ export function SignalBlock({ position, fixed, audioContext }) {
         />
       ))}
       {!basket.length && 'empty block'}
-      {isOver && <div>Your close. Drop here</div>}
+      {isOver && <div>You are close. Drop here</div>}
     </div>
   );
 }

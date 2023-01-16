@@ -8,117 +8,13 @@
         margin: 0;
         padding: 0;
       }
-
-      h1 {
-        font-family: Pacifico, sans-serif;
-        font-size: 4em;
-        color: #3eb5f1;
-        margin: 0;
-      }
-
-      h2 {
-        font-weight: 300;
-        font-family: sans-serif;
-      }
-
-      .centered {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        text-align: center;
-        padding: 15px;
-        width: 100%;
-      }
     </style>
   </head>
   <body>
-    <div class="centered">
-      <div id="root"></div>
-      <h1>FX</h1>
-      <canvas id="visualizer"></canvas>
-      <h2>Play some sounds!</h2>
-      <button id="create">Create Signal Chain</button>
-      <button id="stop">Stop</button>
-      <form>
-        <div>
-          <!-- <label for="volume">
-            Gain
-            <input
-              type="range"
-              id="volume"
-              min="0"
-              max="10"
-              value="5"
-              step="0.01"
-            />
-          </label> -->
-          <label for="fuzz">
-            Fuzz
-            <input
-              data-id="fuzz-3r3r3"
-              data-active="false"
-              data-effect="Fuzz"
-              type="checkbox"
-              id="fuzz"
-            />
-          </label>
-          <label for="gain">
-            Gain
-            <input
-              data-id="gain-1jsjw"
-              data-active="false"
-              data-effect="Gain"
-              type="checkbox"
-              id="gain"
-            />
-          </label>
-          <label for="reverb">
-            Reverb
-            <input
-              data-id="reverb-agsaefw"
-              data-active="false"
-              data-effect="Reverb"
-              type="checkbox"
-              id="reverb"
-            />
-          </label>
-          <label for="compressor">
-            Compressor
-            <input
-              data-id="compressor-aslajf"
-              data-active="false"
-              data-effect="Compressor"
-              type="checkbox"
-              id="compressor"
-            />
-          </label>
-          <label for="delay">
-            Delay
-            <input
-              data-id="delay-atotot"
-              data-active="false"
-              data-effect="Delay"
-              type="checkbox"
-              id="delay"
-            />
-          </label>
-          <label for="distortion">
-            Distortion
-            <input
-              data-id="distortion-1uuuet"
-              data-active="false"
-              data-effect="Distortion"
-              type="checkbox"
-              id="distortion"
-            />
-          </label>
-        </div>
-      </form>
-    </div>
+    <div id="root"></div>
+    <canvas id="visualizer"></canvas>
     <audio src="./sounds/audio-effects-sample-1.wav" loop></audio>
     <!-- <audio src="sounds/250Hz-44100Hz-16bit-05sec.wav" loop></audio> -->
-
     <script type="module" src="./js/out.js"></script>
   </body>
 </html>
