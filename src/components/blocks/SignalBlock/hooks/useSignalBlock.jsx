@@ -2,11 +2,11 @@ import { h } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 import { useDrop } from 'react-dnd';
 import { EffectDragType } from '../../Effect';
-import * as Effects from '../../../effects/index';
-import { SignalChainOperator } from '../../../signal/chain';
-import { signalChainNode } from '../../../signal';
-import { SIGNALCHAIN } from '../../../actions';
-import { useSignalChainStore } from '../../../stores/SignalChainProvider';
+import * as Effects from '../../../../effects/index';
+import { SignalChainOperator } from '../../../../signal/chain';
+import { signalChainNode } from '../../../../signal';
+import { SIGNALCHAIN } from '../../../../actions';
+import { useSignalChainStore } from '../../../../stores/SignalChainProvider';
 
 export function useSignalBlock({ audioContext, position }) {
   const { store, dispatch } = useSignalChainStore();

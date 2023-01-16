@@ -14,7 +14,7 @@ export function Effect({ id, type, onClose }) {
 
   return (
     <div
-      className="bg-slate-800 border-solid border-2 border-sky-400 p-2 rounded-lg cursor-pointer relative"
+      className="bg-slate-800 border-solid border-2 border-slate-900 p-2 rounded-lg cursor-pointer relative"
       ref={dragRef}
     >
       {type}

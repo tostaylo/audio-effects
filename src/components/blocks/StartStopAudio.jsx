@@ -1,8 +1,8 @@
 import { h } from 'preact';
 import { useState } from 'preact/hooks';
-import { Button } from './Button';
-import { SignalChainOperator } from '../signal/chain';
-import { useSignalChainStore } from '../stores/SignalChainProvider';
+import { Button } from '../system/Button';
+import { SignalChainOperator } from '../../signal/chain';
+import { useSignalChainStore } from '../../stores/SignalChainProvider';
 
 function startAudio({ audioContext, audioElement, signalChain, track }) {
   SignalChainOperator.connect({ nodes: signalChain, track });
