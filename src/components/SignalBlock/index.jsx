@@ -2,18 +2,16 @@ import { h } from 'preact';
 import { useSignalBlock } from './hooks/useSignalBlock';
 import { Effect } from '../Effect';
 
-function classes({ basket }) {
-  const emptyBasketClasses = `border-solid border-2 border-sky-500 `;
+function classes({ id }) {
+  const withoutItemClasses = `border-solid border-2 border-sky-500 `;
 
-  return `${
-    !basket.length ? emptyBasketClasses : ''
-  } bg-slate-800 p-5 rounded-lg`;
+  return `${!id ? withoutItemClasses : ''} bg-slate-800 p-5 rounded-lg`;
 }
 
 export function SignalBlock({ position, audioContext }) {
   const {
-    basket,
-    setBasket,
+    item: { id, type },
+    setItem,
     DnDProps: { isOver, dropRef },
   } = useSignalBlock({
     audioContext,
@@ -21,18 +19,17 @@ export function SignalBlock({ position, audioContext }) {
   });
 
   return (
-    <div className={classes({ basket })} ref={dropRef}>
-      {basket.map(({ id, type }) => (
+    <div className={classes({ id })} ref={dropRef}>
+      {id ? (
         <Effect
           key={id}
           id={id}
           type={type}
           onClose={() => {
-            setBasket([]);
+            setItem({});
           }}
         />
-      ))}
-      {!basket.length && (
+      ) : (
         <span className={isOver ? 'opacity-0' : ''}>
           <ArrowDown />
         </span>

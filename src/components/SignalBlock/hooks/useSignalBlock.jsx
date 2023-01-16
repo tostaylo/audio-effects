@@ -11,16 +11,16 @@ import { useSignalChainStore } from '../../../stores/SignalChainProvider';
 export function useSignalBlock({ audioContext, position }) {
   const { store, dispatch } = useSignalChainStore();
 
-  const [basket, setBasket] = useState([]);
+  const [item, setItem] = useState({});
   const [active, setActive] = useState(false);
 
   const [{ isOver }, dropRef] = useDrop({
     accept: EffectDragType,
-    drop: (item) => {
+    drop: (newItem) => {
+      if (item.id) return;
+
       setActive(true);
-      return setBasket((basket) =>
-        !basket.includes(item) ? [...basket, item] : basket
-      );
+      return setItem(newItem);
     },
 
     collect: (monitor) => ({
@@ -32,7 +32,7 @@ export function useSignalBlock({ audioContext, position }) {
     async function connectSignal() {
       SignalChainOperator.disconnect({ signalChain: store });
 
-      const { type, id } = basket[0];
+      const { type, id } = item;
 
       const newNodes = await Effects[type](audioContext);
 
@@ -56,12 +56,12 @@ export function useSignalBlock({ audioContext, position }) {
       dispatch(disconnect);
     }
 
-    if (basket.length) {
+    if (item.id) {
       connectSignal();
-    } else if (!basket.length && active) {
+    } else if (!item.id && active) {
       disconnectSignal();
     }
-  }, [basket.length, active]);
+  }, [item.id, active]);
 
-  return { basket, setBasket, DnDProps: { isOver, dropRef } };
+  return { item, setItem, DnDProps: { isOver, dropRef } };
 }
