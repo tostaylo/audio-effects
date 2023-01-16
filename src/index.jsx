@@ -3,11 +3,10 @@ import { App } from './App';
 import { initialize } from './audio';
 
 initialize()
-  .then(({ audioContext, fixed, track, audioElement, analyser }) => {
+  .then(({ audioContext, track, audioElement, analyser }) => {
     render(
       <App
         audioContext={audioContext}
-        fixed={fixed}
         track={track}
         audioElement={audioElement}
         analyser={analyser}

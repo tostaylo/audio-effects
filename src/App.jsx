@@ -8,20 +8,22 @@ import { SignalChainProvider } from './stores/SignalChainProvider';
 import { Visualizer } from './components/Visualizer';
 import { Main } from './components/Main';
 
-export function App({ track, fixed, analyser, audioContext, audioElement }) {
+export function App({ track, analyser, audioContext, audioElement }) {
   return (
-    <SignalChainProvider track={track} fixed={fixed}>
+    <SignalChainProvider
+      track={track}
+      fixed={[analyser, audioContext.destination]}
+    >
       <Main>
         <Visualizer analyser={analyser} />
         <DndProvider backend={HTML5Backend}>
           <EffectList />
-          <SignalChain audioContext={audioContext} fixed={fixed} />
+          <SignalChain audioContext={audioContext} />
         </DndProvider>
         <StartStopAudio
           track={track}
           audioContext={audioContext}
           audioElement={audioElement}
-          fixed={fixed}
         />
       </Main>
     </SignalChainProvider>

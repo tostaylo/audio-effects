@@ -1,22 +1,24 @@
 const createSignalChain = ({ nodes, track }) =>
   nodes.reduce((acc, node) => acc.connect(node), track);
 
-function modifySignalChain({ track, fixed, signalChain }) {
-  const newChain = signalChain.reduce(
-    (acc, next) => [...acc, ...next.nodes],
+function modifySignalChain({ track, signalChain }) {
+  const nodes = signalChain.reduce(
+    (acc, next) => (next.nodes ? [...acc, ...next.nodes] : [...acc, next]),
     []
   );
 
-  createSignalChain({ nodes: [...newChain, ...fixed], track });
+  createSignalChain({ nodes, track });
 }
 
-function disconnectSignalChain({ signalChainStore, fixed }) {
+function disconnectSignalChain({ signalChainStore }) {
   const reversedStore = [...signalChainStore].reverse();
-  const reversedFixed = [...fixed].reverse();
-  [...reversedFixed].forEach((node) => node.disconnect());
   [...reversedStore].forEach((node) => {
-    const reversed = [...node.nodes].reverse();
-    reversed.forEach((node) => node.disconnect());
+    if (node.nodes) {
+      const reversed = [...node.nodes].reverse();
+      reversed.forEach((node) => node.disconnect());
+    } else {
+      node.disconnect();
+    }
   });
 }
 

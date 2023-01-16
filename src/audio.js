@@ -5,9 +5,8 @@ async function initialize() {
   const analyser = audioContext.createAnalyser();
   const audioElement = document.querySelector('audio');
   const track = createTrack(audioContext, audioElement);
-  const fixed = [analyser, audioContext.destination];
 
-  return { audioContext, fixed, track, audioElement, analyser };
+  return { audioContext, track, audioElement, analyser };
 }
 
 export { initialize };

@@ -8,7 +8,7 @@ import { signalChainNode } from '../signal';
 import { SIGNALCHAIN } from '../actions';
 import { useSignalChainStore } from '../stores/SignalChainProvider';
 
-export function SignalBlock({ position, fixed, audioContext }) {
+export function SignalBlock({ position, audioContext }) {
   const { store, dispatch } = useSignalChainStore();
 
   const [basket, setBasket] = useState([]);
@@ -25,7 +25,7 @@ export function SignalBlock({ position, fixed, audioContext }) {
 
   useEffect(() => {
     async function connectSignal() {
-      disconnectSignalChain({ signalChainStore: store, fixed });
+      disconnectSignalChain({ signalChainStore: store });
 
       const { type, id } = basket[0];
 
@@ -41,7 +41,7 @@ export function SignalBlock({ position, fixed, audioContext }) {
     }
 
     function disconnectSignal() {
-      disconnectSignalChain({ signalChainStore: store, fixed });
+      disconnectSignalChain({ signalChainStore: store });
 
       const disconnect = {
         type: SIGNALCHAIN.DISCONNECT,
