@@ -29,4 +29,10 @@ function disconnectSignalChain({ signalChain }) {
   });
 }
 
-export { createSignalChain, modifySignalChain, disconnectSignalChain };
+const SignalChainOperator = {
+  connect: createSignalChain,
+  modify: modifySignalChain,
+  disconnect: disconnectSignalChain,
+};
+
+export { SignalChainOperator };

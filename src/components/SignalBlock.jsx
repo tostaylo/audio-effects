@@ -3,7 +3,7 @@ import { useState, useEffect } from 'preact/hooks';
 import { useDrop } from 'react-dnd';
 import { Effect, EffectDragType } from './Effect';
 import * as Effects from '../effects/index';
-import { disconnectSignalChain } from '../signal/chain';
+import { SignalChainOperator } from '../signal/chain';
 import { signalChainNode } from '../signal';
 import { SIGNALCHAIN } from '../actions';
 import { useSignalChainStore } from '../stores/SignalChainProvider';
@@ -30,7 +30,7 @@ export function SignalBlock({ position, audioContext }) {
 
   useEffect(() => {
     async function connectSignal() {
-      disconnectSignalChain({ signalChain: store });
+      SignalChainOperator.disconnect({ signalChain: store });
 
       const { type, id } = basket[0];
 
@@ -46,7 +46,7 @@ export function SignalBlock({ position, audioContext }) {
     }
 
     function disconnectSignal() {
-      disconnectSignalChain({ signalChain: store });
+      SignalChainOperator.disconnect({ signalChain: store });
 
       const disconnect = {
         type: SIGNALCHAIN.DISCONNECT,
@@ -59,7 +59,6 @@ export function SignalBlock({ position, audioContext }) {
     if (basket.length) {
       connectSignal();
     } else if (!basket.length && active) {
-      console.log('disconnection');
       disconnectSignal();
     }
   }, [basket.length, active]);

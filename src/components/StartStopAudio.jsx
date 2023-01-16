@@ -1,11 +1,11 @@
 import { h } from 'preact';
 import { useState } from 'preact/hooks';
 import { Button } from './Button';
-import { createSignalChain } from '../signal/chain';
+import { SignalChainOperator } from '../signal/chain';
 import { useSignalChainStore } from '../stores/SignalChainProvider';
 
 function startAudio({ audioContext, audioElement, signalChain, track }) {
-  createSignalChain({ nodes: signalChain, track });
+  SignalChainOperator.connect({ nodes: signalChain, track });
 
   if (audioContext.state === 'suspended') {
     audioContext.resume();
