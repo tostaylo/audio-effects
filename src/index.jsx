@@ -5,7 +5,7 @@ import { SignalChain } from './components/SignalChain';
 import { EffectList } from './components/EffectList';
 import { StartStopAudio } from './components/StartStopAudio';
 import { SignalChainProvider } from './stores/SignalChainProvider';
-import initialize from './audio';
+import { initialize } from './audio';
 
 initialize()
   .then(({ audioContext, fixed, track, audioElement }) => {

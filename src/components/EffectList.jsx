@@ -14,6 +14,22 @@ const EFFECTS = [
     id: 'reverb-3939',
     type: 'Reverb',
   },
+  {
+    id: 'compressor-399',
+    type: 'Compressor',
+  },
+  {
+    id: 'delay-rjrjr9',
+    type: 'Delay',
+  },
+  {
+    id: 'distortion-ytyty',
+    type: 'Distortion',
+  },
+  {
+    id: 'impulse-response-ytyty',
+    type: 'ImpulseResponse',
+  },
 ];
 
 export function EffectList() {
