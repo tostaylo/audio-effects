@@ -1,5 +1,4 @@
 import createTrack from './track.js';
-import waveformVisualizer from './dom/visualizer.js';
 
 async function initialize() {
   const audioContext = new AudioContext();
@@ -8,9 +7,7 @@ async function initialize() {
   const track = createTrack(audioContext, audioElement);
   const fixed = [analyser, audioContext.destination];
 
-  waveformVisualizer(analyser);
-
-  return { audioContext, fixed, track, audioElement };
+  return { audioContext, fixed, track, audioElement, analyser };
 }
 
 export { initialize };
