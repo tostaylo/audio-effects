@@ -19,7 +19,6 @@ function stopAudio({ track }) {
 }
 
 export function StartStopAudio({ audioElement, audioContext, fixed, track }) {
-  console.log('should not fire if context is updated');
   return (
     <div>
       <Button

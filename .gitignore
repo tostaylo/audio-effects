@@ -1,4 +1,5 @@
 node_modules
-public/js/out.js
+public/js/output.js
+public/styles/output.css
 notes.md
 .DS_STORE

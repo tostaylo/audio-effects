@@ -58,16 +58,12 @@ export function SignalBlock({ position, fixed, audioContext }) {
       disconnectSignal();
     }
   }, [basket.length]);
-  console.log('this fires on context update');
+
   return (
     <div
-      style={{
-        width: '100px',
-        height: '100px',
-        margin: '5px',
-        border: '1px solid black',
-      }}
-      className="signal-block"
+      className={`border-solid border-2 border-sky-${
+        !isOver && !basket.length ? '500' : '100'
+      } p-5 rounded-lg`}
       ref={dropRef}
     >
       {basket.map(({ id, type }) => (
@@ -80,8 +76,9 @@ export function SignalBlock({ position, fixed, audioContext }) {
           }}
         />
       ))}
-      {!basket.length && 'empty block'}
-      {isOver && <div>You are close. Drop here</div>}
+      {!basket.length && (
+        <span className={isOver ? 'opacity-0' : ''}>empty block</span>
+      )}
     </div>
   );
 }

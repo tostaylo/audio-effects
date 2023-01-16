@@ -3,7 +3,7 @@ import { SignalBlock } from './SignalBlock';
 
 export function SignalChain({ fixed, audioContext }) {
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+    <div className="flex justify-around mb-10">
       {[0, 1, 2, 3, 4, 5, 6].map((item) => (
         <SignalBlock
           fixed={fixed}

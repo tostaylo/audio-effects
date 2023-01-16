@@ -12,14 +12,16 @@ initialize()
     const App = (
       <SignalChainProvider track={track} fixed={fixed}>
         <DndProvider backend={HTML5Backend}>
-          <EffectList />
-          <SignalChain audioContext={audioContext} fixed={fixed} />
-          <StartStopAudio
-            track={track}
-            audioContext={audioContext}
-            audioElement={audioElement}
-            fixed={fixed}
-          />
+          <main className="flex flex-col bg-slate-800 h-screen text-white px-6 py-8">
+            <EffectList />
+            <SignalChain audioContext={audioContext} fixed={fixed} />
+            <StartStopAudio
+              track={track}
+              audioContext={audioContext}
+              audioElement={audioElement}
+              fixed={fixed}
+            />
+          </main>
         </DndProvider>
       </SignalChainProvider>
     );

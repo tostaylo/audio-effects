@@ -14,19 +14,19 @@ export function Effect({ id, type, onClose }) {
 
   return (
     <div
-      style={{
-        border: '1px solid black',
-        borderRadius: '5px',
-        margin: '5px',
-        display: 'inline-block',
-        padding: '5px',
-      }}
-      className="effect"
+      className="border-solid border-2 border-sky-400 p-2 rounded-lg cursor-pointer relative"
       ref={dragRef}
     >
       {type}
       {isDragging && '😱'}
-      {onClose && <button onClick={onClose}>X</button>}
+      {onClose && (
+        <button
+          className="absolute right-1 top-0 text-xs text-sky-400"
+          onClick={onClose}
+        >
+          X
+        </button>
+      )}
     </div>
   );
 }

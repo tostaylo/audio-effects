@@ -34,7 +34,7 @@ const EFFECTS = [
 
 export function EffectList() {
   return (
-    <div className="effects">
+    <div className="flex justify-around mb-10">
       {EFFECTS.map(({ id, type }) => (
         <Effect key={id} id={id} draggable type={type} />
       ))}
