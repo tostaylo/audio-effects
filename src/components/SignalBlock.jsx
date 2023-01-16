@@ -2,11 +2,11 @@ import { h } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 import { useDrop } from 'react-dnd';
 import { Effect, EffectDragType } from './Effect';
-import * as Effects from '../js/effects/index';
-import { disconnectSignalChain } from '../js/signal/chain';
-import { signalChainNode } from '../js/signal';
-import { SIGNALCHAIN } from '../js/actions';
-import signalChainStore from '../js/stores/signal-chain';
+import * as Effects from '../effects/index';
+import { disconnectSignalChain } from '../signal/chain';
+import { signalChainNode } from '../signal';
+import { SIGNALCHAIN } from '../actions';
+import signalChainStore from '../stores/signal-chain';
 
 export function SignalBlock({ position, fixed, audioContext }) {
   const [basket, setBasket] = useState([]);

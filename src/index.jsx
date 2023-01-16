@@ -4,7 +4,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import { SignalChain } from './components/SignalChain';
 import { EffectList } from './components/EffectList';
 import { StartStopAudio } from './components/StartStopAudio';
-import initialize from './js/audio';
+import initialize from './audio';
 
 initialize()
   .then(({ audioContext, fixed, track, audioElement }) => {
