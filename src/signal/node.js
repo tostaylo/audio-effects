@@ -1,9 +1,10 @@
-function signalChainNode({ id, type, nodes }, pos) {
+function signalChainNode({ id, type, nodes, params }, pos) {
   return {
     id,
     type,
     nodes,
     pos,
+    params,
   };
 }
 

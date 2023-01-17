@@ -9,6 +9,7 @@ const EFFECTS = [
   {
     id: 'gain-3444r3',
     type: 'Gain',
+    params: ['gain'],
   },
   {
     id: 'reverb-3939',
@@ -35,8 +36,8 @@ const EFFECTS = [
 export function EffectList() {
   return (
     <div className="flex justify-around mb-10">
-      {EFFECTS.map(({ id, type }) => (
-        <Effect key={id} id={id} draggable type={type} />
+      {EFFECTS.map(({ id, type, params }) => (
+        <Effect key={id} id={id} draggable type={type} params={params} />
       ))}
     </div>
   );

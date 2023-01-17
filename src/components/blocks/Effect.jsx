@@ -3,10 +3,10 @@ import { useDrag } from 'react-dnd';
 
 export const EffectDragType = 'effect';
 
-export function Effect({ id, type, onClose }) {
+export function Effect({ id, type, onClose, params }) {
   const [{ isDragging }, dragRef] = useDrag({
     type: EffectDragType,
-    item: { id, type },
+    item: { id, type, params },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),

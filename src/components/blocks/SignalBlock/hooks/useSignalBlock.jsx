@@ -32,11 +32,14 @@ export function useSignalBlock({ audioContext, position }) {
     async function connectSignal() {
       SignalChainOperator.disconnect({ signalChain: store });
 
-      const { type, id } = item;
+      const { type, id, params } = item;
 
       const newNodes = await Effects[type](audioContext);
 
-      const node = signalChainNode({ id, type, nodes: newNodes }, position);
+      const node = signalChainNode(
+        { id, type, params, nodes: newNodes },
+        position
+      );
       const connect = {
         type: SIGNALCHAIN.CONNECT,
         node,

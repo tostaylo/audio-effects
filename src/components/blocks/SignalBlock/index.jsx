@@ -2,6 +2,7 @@ import { h } from 'preact';
 import { useSignalBlock } from './hooks/useSignalBlock';
 import { Effect } from '../Effect';
 import { ArrowDownBox } from '../../icons/ArrowDownBox';
+import { useSignalChainStore } from '../../../stores/SignalChainProvider';
 
 function classes({ id }) {
   const withoutItemClasses = `border-solid border-2 border-sky-500 `;
@@ -11,7 +12,7 @@ function classes({ id }) {
 
 export function SignalBlock({ position, audioContext }) {
   const {
-    item: { id, type },
+    item: { id, type, params },
     setItem,
     DnDProps: { isOver, dropRef },
   } = useSignalBlock({
@@ -19,8 +20,32 @@ export function SignalBlock({ position, audioContext }) {
     position,
   });
 
+  const { store } = useSignalChainStore();
+  const effectNode = store.find((effect) => effect.id === id);
+  const webAudioNode = effectNode?.nodes?.[0];
+
   return (
     <div className={classes({ id })} ref={dropRef}>
+      {webAudioNode &&
+        params &&
+        params.map((param) => (
+          <label key={param} htmlFor={param}>
+            <input
+              onInput={(event) => {
+                webAudioNode[param].value = event.target.value;
+              }}
+              defaultValue={webAudioNode[param].value}
+              type="range"
+              id={param}
+              name={param}
+              min="0"
+              max="10"
+              step={'0.5'}
+            />
+            {param}
+          </label>
+        ))}
+
       {id ? (
         <Effect
           key={id}
