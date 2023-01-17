@@ -1,4 +1,4 @@
-export default function waveformVisualizer(analyser) {
+export function waveformVisualizer(analyser) {
   analyser.fftSize = 2048;
   const bufferLength = analyser.frequencyBinCount;
   const dataArray = new Uint8Array(bufferLength);
@@ -15,11 +15,11 @@ export default function waveformVisualizer(analyser) {
     requestAnimationFrame(draw);
     analyser.getByteTimeDomainData(dataArray);
 
-    canvasCtx.fillStyle = 'rgb(200, 200, 200)';
+    canvasCtx.fillStyle = 'rgb(15 23 42)';
     canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
 
     canvasCtx.lineWidth = 2;
-    canvasCtx.strokeStyle = 'rgb(0, 0, 0)';
+    canvasCtx.strokeStyle = 'rgb(56 189 248)';
     canvasCtx.beginPath();
 
     const sliceWidth = (WIDTH * 1.0) / bufferLength;

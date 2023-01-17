@@ -9,5 +9,5 @@ export default async function ImpulseResponse(context) {
     convolver.buffer = decoded;
   });
 
-  return convolver;
+  return [convolver];
 }
