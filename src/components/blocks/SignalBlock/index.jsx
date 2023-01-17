@@ -21,30 +21,34 @@ export function SignalBlock({ position, audioContext }) {
   });
 
   const { store } = useSignalChainStore();
-  const effectNode = store.find((effect) => effect.id === id);
-  const webAudioNode = effectNode?.nodes?.[0];
+  const storeEffect = store.find((effect) => effect.id === id);
+  const webAudioNode = storeEffect?.nodes?.[0];
 
   return (
     <div className={classes({ id })} ref={dropRef}>
       {webAudioNode &&
         params &&
-        params.map((param) => (
-          <label key={param} htmlFor={param}>
-            <input
-              onInput={(event) => {
-                webAudioNode[param].value = event.target.value;
-              }}
-              defaultValue={webAudioNode[param].value}
-              type="range"
-              id={param}
-              name={param}
-              min="0"
-              max="10"
-              step={'0.5'}
-            />
-            {param}
-          </label>
-        ))}
+        Object.entries(params)?.map(([key, { set, min, max, step }]) => {
+          const currentVal = webAudioNode[key].value;
+
+          return (
+            <label key={key} htmlFor={key}>
+              <input
+                onInput={(event) => {
+                  set(webAudioNode, Number(event.target.value));
+                }}
+                defaultValue={currentVal}
+                type="range"
+                id={key}
+                name={key}
+                min={min}
+                max={max}
+                step={step}
+              />
+              {key}
+            </label>
+          );
+        })}
 
       {id ? (
         <Effect

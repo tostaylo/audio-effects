@@ -1,5 +1,6 @@
 import { h } from 'preact';
 import { Effect } from './Effect';
+import { createDistortionCurve } from '../../effects/distortion';
 
 const EFFECTS = [
   {
@@ -9,7 +10,14 @@ const EFFECTS = [
   {
     id: 'gain-3444r3',
     type: 'Gain',
-    params: ['gain'],
+    params: {
+      gain: {
+        set: (node, value) => (node.gain.value = value),
+        step: 0.02,
+        max: 100,
+        min: 0,
+      },
+    },
   },
   {
     id: 'reverb-3939',
@@ -22,10 +30,26 @@ const EFFECTS = [
   {
     id: 'delay-rjrjr9',
     type: 'Delay',
+    params: {
+      delayTime: {
+        set: (node, value) => (node.delayTime.value = value),
+        step: 0.02,
+        max: 1,
+        min: 0,
+      },
+    },
   },
   {
     id: 'distortion-ytyty',
     type: 'Distortion',
+    params: {
+      curve: {
+        set: (node, value) => (node.curve = createDistortionCurve(value * 5)),
+        step: 1,
+        max: 100,
+        min: 0,
+      },
+    },
   },
   {
     id: 'impulse-response-ytyty',
