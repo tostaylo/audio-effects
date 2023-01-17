@@ -26,6 +26,39 @@ const EFFECTS = [
   {
     id: 'compressor-399',
     type: 'Compressor',
+    // TODO: Don't think I have the param setting correct here because it sounds bad
+    params: {
+      attack: {
+        set: (node, value) => (node.attack.value = value),
+        step: 0.01,
+        max: 1,
+        min: 0,
+      },
+      ratio: {
+        set: (node, value) => (node.ratio.value = value),
+        step: 1,
+        max: 20,
+        min: 1,
+      },
+      threshold: {
+        set: (node, value) => (node.threshold.value = value),
+        step: 0.02,
+        max: 0,
+        min: -100,
+      },
+      release: {
+        set: (node, value) => (node.release.value = value),
+        step: 0.02,
+        max: 1,
+        min: 0,
+      },
+      knee: {
+        set: (node, value) => (node.knee.value = value),
+        step: 0.02,
+        max: 40,
+        min: 0,
+      },
+    },
   },
   {
     id: 'delay-rjrjr9',
@@ -59,7 +92,7 @@ const EFFECTS = [
 
 export function EffectList() {
   return (
-    <div className="flex justify-around mb-10">
+    <div className="flex flex-wrap w-full justify-around mb-10">
       {EFFECTS.map(({ id, type, params }) => (
         <Effect key={id} id={id} draggable type={type} params={params} />
       ))}

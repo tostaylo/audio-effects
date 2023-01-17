@@ -26,29 +26,31 @@ export function SignalBlock({ position, audioContext }) {
 
   return (
     <div className={classes({ id })} ref={dropRef}>
-      {webAudioNode &&
-        params &&
-        Object.entries(params)?.map(([key, { set, min, max, step }]) => {
-          const currentVal = webAudioNode[key].value;
+      {webAudioNode && params && (
+        <div className="flex flex-col">
+          {Object.entries(params)?.map(([key, { set, min, max, step }]) => {
+            const currentVal = webAudioNode[key].value;
 
-          return (
-            <label key={key} htmlFor={key}>
-              <input
-                onInput={(event) => {
-                  set(webAudioNode, Number(event.target.value));
-                }}
-                defaultValue={currentVal}
-                type="range"
-                id={key}
-                name={key}
-                min={min}
-                max={max}
-                step={step}
-              />
-              {key}
-            </label>
-          );
-        })}
+            return (
+              <label className="flex justify-between" key={key} htmlFor={key}>
+                <input
+                  onInput={(event) => {
+                    set(webAudioNode, Number(event.target.value));
+                  }}
+                  defaultValue={currentVal}
+                  type="range"
+                  id={key}
+                  name={key}
+                  min={min}
+                  max={max}
+                  step={step}
+                />
+                {key}
+              </label>
+            );
+          })}
+        </div>
+      )}
 
       {id ? (
         <Effect
