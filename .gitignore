@@ -3,3 +3,6 @@ public/js/output.js
 public/styles/output.css
 notes.md
 .DS_STORE
+/test-results/
+/playwright-report/
+/playwright/.cache/

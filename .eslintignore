@@ -2,3 +2,5 @@
 **/*.md
 sounds
 **/*.html
+tailwind.config.cjs
+src/input.css
