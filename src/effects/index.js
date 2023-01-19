@@ -5,3 +5,4 @@ export { default as Gain } from './gain.js';
 export { default as Fuzz } from './fuzz.js';
 export { default as ImpulseResponse } from './impulse-response.js';
 export { default as Reverb } from './reverb.js';
+export { default as Tremelo } from './tremelo.js';
