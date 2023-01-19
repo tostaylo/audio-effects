@@ -5,11 +5,18 @@ export function useAudioEffectParams(id) {
   const { store } = useSignalChainStore();
   const storeEffect = store.find((effect) => effect.id === id);
 
-  const effects = storeEffect?.nodes?.map((node) => {
-    console.log(node);
-    const { params } = definitions[node.constructor.name];
-    return { webAudioNode: node, params };
-  });
+  const effects = storeEffect?.nodes
+    ?.map((node) => {
+      const effectDefinition = definitions[node.constructor.name];
+      console.log(node);
+
+      if (!effectDefinition) return false;
+
+      const { params } = effectDefinition;
+
+      return { webAudioNode: node, params };
+    })
+    .filter(Boolean);
 
   return effects;
 }

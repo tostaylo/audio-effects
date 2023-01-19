@@ -1,6 +1,28 @@
 import { createDistortionCurve } from './distortion';
 
 export const definitions = {
+  BiquadFilterNode: {
+    params: {
+      Q: {
+        set: (node, value) => (node.Q.value = value),
+        step: 1000,
+        min: -3.4028234663852886e38,
+        max: 3.4028234663852886e38,
+      },
+      frequency: {
+        set: (node, value) => (node.frequency.value = value),
+        step: 1000,
+        min: 0,
+        max: 24000,
+      },
+      detune: {
+        set: (node, value) => (node.detune.value = value),
+        step: 1000,
+        min: -153600,
+        max: 153600,
+      },
+    },
+  },
   GainNode: {
     params: {
       gain: {
