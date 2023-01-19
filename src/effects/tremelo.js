@@ -4,21 +4,27 @@ const defaultOptions = {
   frequency: 440,
 };
 
-function Oscillator(audioContext, options = defaultOptions) {
-  const { currentTime } = audioContext;
-  const tremelo = audioContext.createOscillator();
+export default function Tremelo(audioContext, options = defaultOptions) {
+  const oscillator = new OscillatorNode(audioContext, options);
+  oscillator.start();
 
-  tremelo.type.setValueAtTime(options.type, currentTime);
-  tremelo.detune.setValueAtTime(options.detune, currentTime);
-  tremelo.frequency.setValueAtTime(options.frequency, currentTime);
+  const gain = new GainNode(audioContext, (options = { gain: 0.5 }));
 
-  return [tremelo];
-}
+  const lowFrequencyOscillator = new OscillatorNode(audioContext, {
+    type: 'sine',
+    detune: 500,
+    frequency: 5,
+  });
+  lowFrequencyOscillator.start();
 
-export default function Tremelo(audioContext) {
-  const gainNode = new GainNode(audioContext, 2);
+  const lowFrequencyGain = new GainNode(
+    audioContext,
+    (options = { gain: 0.5 })
+  );
 
-  const tremelo = Oscillator.start();
+  lowFrequencyOscillator.connect(lowFrequencyGain);
+  lowFrequencyGain.connect(gain.gain);
+  oscillator.connect(gain);
 
-  return [gainNode, tremelo];
+  return [gain];
 }
