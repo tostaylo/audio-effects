@@ -30,6 +30,10 @@ const EFFECTS = [
     id: 'impulse-response-ytyty',
     type: 'ImpulseResponse',
   },
+  {
+    id: 'tremelo-ktkt44',
+    type: 'Tremelo',
+  },
 ];
 
 export function EffectList() {
