@@ -2,7 +2,7 @@ const config = {
   testDir: './tests',
   testMatch: '**/*.spec.js',
   use: {
-    headless: false,
+    headless: true,
     viewport: { width: 1280, height: 720 },
     ignoreHTTPSErrors: true,
     baseURL: 'http://localhost:8787',
