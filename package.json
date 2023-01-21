@@ -25,6 +25,7 @@
   "scripts": {
     "build:dev": "npm-run-all --parallel esbuild:dev tailwind:dev tsx:dev",
     "esbuild:dev": "esbuild src/index.jsx --jsx-factory=h --jsx-fragment=Fragment --bundle --outfile=public/js/output.js --watch",
+    "esbuild:ci": "esbuild src/index.jsx --jsx-factory=h --jsx-fragment=Fragment --bundle --outfile=public/js/output.js",
     "tailwind:dev": "npx tailwindcss -i ./src/input.css -o ./public/styles/output.css --watch",
     "tsx:dev": "npx tsc --watch",
     "eslint": "eslint .",

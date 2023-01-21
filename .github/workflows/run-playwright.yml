@@ -11,5 +11,7 @@ jobs:
         run: npm install
       - name: Install playwright browsers
         run: npx playwright install --with-deps
+      - name: Build
+        run: npm run esbuild:ci
       - name: Run tests
         run: npm run test:playwright
