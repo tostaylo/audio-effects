@@ -8,7 +8,6 @@ export function useAudioEffectParams(id) {
   const effects = storeEffect?.nodes
     ?.map((node) => {
       const effectDefinition = definitions[node.constructor.name];
-      console.log(node);
 
       if (!effectDefinition) return false;
 
