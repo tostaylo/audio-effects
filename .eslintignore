@@ -4,3 +4,4 @@ sounds
 **/*.html
 tailwind.config.cjs
 src/input.css
+jest.config.cjs
