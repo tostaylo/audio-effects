@@ -1,5 +1,6 @@
 {
   "include": ["./src/"],
+  "moduleResolution": "node",
   "compilerOptions": {
     "noEmit": true,
     "jsx": "react",

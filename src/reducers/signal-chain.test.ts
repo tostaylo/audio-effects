@@ -1,6 +1,6 @@
-import signalChainReducer from './signal-chain.js';
+import signalChainReducer from './signal-chain';
 import { signalChainNodes } from '../signal/fixtures/signalChainNodes';
-import { SIGNALCHAIN } from '../actions';
+import { SIGNALCHAIN } from '../actions/index';
 
 describe('signalChainReducer', () => {
   test('given initial empty graph we can connect one node with the correct properites attached', () => {
