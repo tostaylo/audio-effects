@@ -15,6 +15,5 @@
     //     "./node_modules/preact/compat/"
     //   ]
     // }
-  },
-  "strict": true
+  }
 }

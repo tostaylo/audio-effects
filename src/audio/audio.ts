@@ -1,5 +1,5 @@
 import createTrack from './track.js';
-import { WebAudioInit } from './types.js';
+import { WebAudioInit } from '../types.js';
 
 async function initialize(): Promise<WebAudioInit> {
   const audioContext = new AudioContext();
