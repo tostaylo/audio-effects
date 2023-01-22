@@ -8,15 +8,21 @@ import { signalChainNode } from '../../../../signal';
 import { SIGNALCHAIN } from '../../../../actions';
 import { useSignalChainStore } from '../../../../stores/SignalChainProvider';
 
-export function useSignalBlock({ audioContext, position }) {
+export function useSignalBlock({
+  audioContext,
+  position,
+}: {
+  audioContext: AudioContext;
+  position: number;
+}) {
   const { store, dispatch } = useSignalChainStore();
 
-  const [item, setItem] = useState({});
+  const [item, setItem] = useState({ id: '', type: '' });
   const [active, setActive] = useState(false);
 
   const [{ isOver }, dropRef] = useDrop({
     accept: EffectDragType,
-    drop: (newItem) => {
+    drop: (newItem: { id: string; type: string }) => {
       if (item.id) return;
 
       setActive(true);
@@ -32,14 +38,11 @@ export function useSignalBlock({ audioContext, position }) {
     async function connectSignal() {
       SignalChainOperator.disconnect({ signalChain: store });
 
-      const { type, id, params } = item;
+      const { type, id } = item;
 
-      const newNodes = await Effects[type](audioContext);
+      const newNodes: AudioNode[] = await Effects[type](audioContext);
 
-      const node = signalChainNode(
-        { id, type, params, nodes: newNodes },
-        position
-      );
+      const node = signalChainNode({ id, type, nodes: newNodes }, position);
       const connect = {
         type: SIGNALCHAIN.CONNECT,
         node,

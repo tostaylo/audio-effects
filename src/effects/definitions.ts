@@ -1,6 +1,24 @@
 import { createDistortionCurve } from './distortion';
 
-export const definitions = {
+type ParamDefinition = {
+  // eslint-disable-next-line no-unused-vars
+  set: (node: any, value: number) => void;
+  step: number;
+  min: number;
+  max: number;
+};
+
+type NodeDefinition = {
+  params: {
+    [key: string]: ParamDefinition;
+  };
+};
+
+export type Definitions = {
+  [key: string]: NodeDefinition;
+};
+
+export const definitions: Definitions = {
   BiquadFilterNode: {
     params: {
       Q: {

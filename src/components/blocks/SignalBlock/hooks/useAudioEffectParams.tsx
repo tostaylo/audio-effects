@@ -1,7 +1,7 @@
 import { useSignalChainStore } from '../../../../stores/SignalChainProvider';
 import { definitions } from '../../../../effects/definitions';
 
-export function useAudioEffectParams(id) {
+export function useAudioEffectParams(id: string) {
   const { store } = useSignalChainStore();
   const storeEffect = store.find((effect) => effect.id === id);
 

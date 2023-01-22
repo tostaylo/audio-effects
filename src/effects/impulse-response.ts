@@ -1,4 +1,6 @@
-export default async function ImpulseResponse(context) {
+export default async function ImpulseResponse(
+  context: AudioContext
+): Promise<AudioNode[]> {
   const convolver = new ConvolverNode(context);
 
   const response = await fetch(
