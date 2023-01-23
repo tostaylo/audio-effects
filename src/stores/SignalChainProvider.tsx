@@ -1,13 +1,14 @@
 import { signalChainStore } from '.';
-import { h, createContext } from 'preact';
+import { h, createContext, ComponentChildren } from 'preact';
 import { useEffect, useState, useContext } from 'preact/hooks';
 import { SignalChainOperator } from '../signal/chain';
+import { WebAudioInit } from '../types';
 
 function completeSignalChain({ store, fixed }) {
   return [...store, ...fixed];
 }
 
-const SignalChainContext = createContext();
+const SignalChainContext = createContext(null);
 
 export function useSignalChainStore() {
   const context = useContext(SignalChainContext);
@@ -20,7 +21,12 @@ export function useSignalChainStore() {
   return context;
 }
 
-export function SignalChainProvider({ children, track, fixed }) {
+type Props = {
+  track: WebAudioInit['track'];
+  fixed: Array<AudioNode>;
+  children: ComponentChildren;
+};
+export function SignalChainProvider({ children, track, fixed }: Props) {
   const [store, setStore] = useState(
     completeSignalChain({ store: signalChainStore.getState(), fixed })
   );

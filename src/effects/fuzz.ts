@@ -1,6 +1,6 @@
 import Distortion from './distortion';
 
-export default function Fuzz(audioContext) {
+export default function Fuzz(audioContext: AudioContext): AudioNode[] {
   const lowPassFilter = audioContext.createBiquadFilter();
   lowPassFilter.type = 'lowpass';
   lowPassFilter.frequency.value = 147;

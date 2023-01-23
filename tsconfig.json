@@ -1,0 +1,21 @@
+{
+  "include": ["./src/"],
+  "moduleResolution": "node",
+  "compilerOptions": {
+    "noEmit": true,
+    "jsx": "react",
+    "jsxFactory": "h",
+    "jsxFragmentFactory": "Fragment",
+    "skipLibCheck": true,
+    "esModuleInterop": true
+    // "baseUrl": "./",
+    // "paths": {
+    //   "react": [
+    //     "./node_modules/preact/compat/"
+    //   ],
+    //   "react-dom": [
+    //     "./node_modules/preact/compat/"
+    //   ]
+    // }
+  }
+}

@@ -6,7 +6,10 @@ const defaultOptions = {
   ratio: 15,
 };
 
-export default function Compressor(audioContext, options = defaultOptions) {
+export default function Compressor(
+  audioContext: AudioContext,
+  options = defaultOptions
+): AudioNode[] {
   const { currentTime } = audioContext;
   const compressor = audioContext.createDynamicsCompressor();
 

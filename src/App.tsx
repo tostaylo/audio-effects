@@ -7,8 +7,14 @@ import { StartStopAudio } from './components/blocks/StartStopAudio';
 import { SignalChainProvider } from './stores/SignalChainProvider';
 import { Visualizer } from './components/blocks/Visualizer';
 import { Main } from './components/system/Main';
+import { WebAudioInit } from './types';
 
-export function App({ track, analyser, audioContext, audioElement }) {
+export function App({
+  track,
+  analyser,
+  audioContext,
+  audioElement,
+}: WebAudioInit) {
   return (
     <SignalChainProvider
       track={track}

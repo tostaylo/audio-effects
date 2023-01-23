@@ -1,0 +1,17 @@
+name: playwright-tests
+on: push
+jobs:
+  tests_e2e:
+    name: Run end-to-end tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - name: Install dependencies
+        run: npm install
+      - name: Install playwright browsers
+        run: npx playwright install --with-deps
+      - name: Build
+        run: npm run esbuild:ci
+      - name: Run tests
+        run: npm run test:playwright

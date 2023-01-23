@@ -1,5 +1,5 @@
 import { signalChainNodes } from '../signal/fixtures/signalChainNodes';
-import { SIGNALCHAIN } from '../actions';
+import { SIGNALCHAIN } from '../actions/index';
 import { createStore } from 'redux';
 import { signalChainReducer } from '../reducers';
 

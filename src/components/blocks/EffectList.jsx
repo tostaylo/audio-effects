@@ -39,8 +39,8 @@ const EFFECTS = [
 export function EffectList() {
   return (
     <div className="flex flex-wrap w-full justify-around mb-10">
-      {EFFECTS.map(({ id, type, params }) => (
-        <Effect key={id} id={id} draggable type={type} params={params} />
+      {EFFECTS.map(({ id, type }) => (
+        <Effect key={id} id={id} draggable type={type} />
       ))}
     </div>
   );

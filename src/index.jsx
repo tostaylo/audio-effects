@@ -1,6 +1,6 @@
 import { render, h } from 'preact';
 import { App } from './App';
-import { initialize } from './audio';
+import { initialize } from './audio/audio';
 
 initialize()
   .then(({ audioContext, track, audioElement, analyser }) => {

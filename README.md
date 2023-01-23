@@ -6,8 +6,12 @@ This project is the start of a guitar effects simulator.  Amps, pedals, and mixi
 
 1. `npm install`
 2. `npm run prepare`
-3. `npm run start`
+3. `npm run start` for starting wrangler or `npm run serve` for simple http server
 4. `npm run build:dev` in new terminal window
+
+## Deploying
+
+`wrangler publish`
 
 ## Public URL
 
@@ -15,4 +19,5 @@ This project is the start of a guitar effects simulator.  Amps, pedals, and mixi
 
 ## Testing
 
-`npm run test`
+`npm run test:playwright`
+`npm run test:jest`

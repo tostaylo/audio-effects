@@ -1,14 +1,13 @@
 import { useSignalChainStore } from '../../../../stores/SignalChainProvider';
 import { definitions } from '../../../../effects/definitions';
 
-export function useAudioEffectParams(id) {
+export function useAudioEffectParams(id: string) {
   const { store } = useSignalChainStore();
   const storeEffect = store.find((effect) => effect.id === id);
 
   const effects = storeEffect?.nodes
     ?.map((node) => {
       const effectDefinition = definitions[node.constructor.name];
-      console.log(node);
 
       if (!effectDefinition) return false;
 
