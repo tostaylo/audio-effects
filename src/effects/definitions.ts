@@ -6,6 +6,7 @@ type ParamDefinition = {
   step?: number;
   min?: number;
   max?: number;
+  type?: string[];
 };
 
 type NodeDefinition = {
@@ -99,6 +100,7 @@ export const definitions: Definitions = {
     params: {
       type: {
         set: (node, type) => (node.type.type = type),
+        type: ['sine', 'square', 'sawtooth', 'triangle'],
       },
       detune: {
         set: (node, value) => (node.detune.value = value),
