@@ -30,25 +30,25 @@ export function EffectParams({ id }) {
                 })}
               </>
             );
+          } else {
+            return (
+              <label className="flex justify-between" key={key} htmlFor={key}>
+                <input
+                  onInput={(event) => {
+                    set(effect.webAudioNode, Number(event.target.value));
+                  }}
+                  defaultValue={currentVal}
+                  type="range"
+                  id={key}
+                  name={key}
+                  min={min}
+                  max={max}
+                  step={step}
+                />
+                {key}
+              </label>
+            );
           }
-
-          return (
-            <label className="flex justify-between" key={key} htmlFor={key}>
-              <input
-                onInput={(event) => {
-                  set(effect.webAudioNode, Number(event.target.value));
-                }}
-                defaultValue={currentVal}
-                type="range"
-                id={key}
-                name={key}
-                min={min}
-                max={max}
-                step={step}
-              />
-              {key}
-            </label>
-          );
         }
       )}
     </div>
