@@ -19,11 +19,12 @@ test('has the correct number of effects with proper names', async ({
   await expect(page.locator('text=ImpulseResponse')).toBeVisible();
   await expect(page.locator('text=Delay')).toBeVisible();
   await expect(page.locator('text=Fuzz')).toBeVisible();
+  await expect(page.locator('text=Tremelo')).toBeVisible();
   await expect(page.locator('text=Fuzzy')).not.toBeVisible();
 
   const effects = await page.evaluate(async () => [
     ...document.querySelectorAll('[data-test-id]'),
   ]);
 
-  expect(effects).toHaveLength(7);
+  expect(effects).toHaveLength(8);
 });
