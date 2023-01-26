@@ -2,7 +2,7 @@ import { createDistortionCurve } from './distortion';
 
 type ParamDefinition = {
   // eslint-disable-next-line no-unused-vars
-  set: (node: any, value?: number, type?: string) => void;
+  set?: (node: any, value: number) => void;
   step?: number;
   min?: number;
   max?: number;
@@ -99,7 +99,6 @@ export const definitions: Definitions = {
   OscillatorNode: {
     params: {
       type: {
-        set: (node, type) => (node.type.type = type),
         type: ['sine', 'square', 'sawtooth', 'triangle'],
       },
       detune: {
