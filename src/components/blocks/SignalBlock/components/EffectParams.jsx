@@ -1,4 +1,3 @@
-import { h } from 'preact';
 import { useAudioEffectParams } from '../hooks/useAudioEffectParams';
 
 export function EffectParams({ id }) {
@@ -11,22 +10,18 @@ export function EffectParams({ id }) {
           const currentVal = effect.webAudioNode[key].value;
 
           if (type) {
-            // return an alternative input element
             return (
               <>
-                {type.map((value, i) => {
-                  <label
-                    className="flex justify-between"
-                    key={key}
-                    htmlFor={key}
-                  >
-                    <input
-                      type="radio"
-                      id={key + i}
-                      name={key + i}
-                      value={value}
-                    />
-                  </label>;
+                {type.map((value) => {
+                  return (
+                    <label
+                      className="flex justify-between"
+                      key={key}
+                      htmlFor={key}
+                    >
+                      <input type="radio" id={key} name={key} value={value} />
+                    </label>
+                  );
                 })}
               </>
             );
