@@ -29,17 +29,17 @@ export function InputModeToggle({ disabled = false }: Props) {
 
   const getButtonClass = (buttonMode: Mode) => {
     const baseClass =
-      'flex-1 px-6 py-3 font-medium transition-all duration-200 border-2';
+      'flex-1 px-6 py-2.5 font-semibold text-base transition-all duration-200 border-2';
     const activeClass =
-      'bg-sky-500 text-white border-sky-500 shadow-lg shadow-sky-500/50';
+      'bg-gradient-to-r from-sky-500 to-sky-400 text-white border-sky-400 shadow-lg shadow-sky-500/50 scale-[1.02]';
     const inactiveClass =
-      'bg-gray-800 text-gray-400 border-gray-700 hover:bg-gray-750 hover:text-gray-300 hover:border-gray-600';
+      'bg-gray-800/50 text-gray-400 border-gray-700 hover:bg-gray-800 hover:text-gray-300 hover:border-gray-600 hover:shadow-md';
     const disabledClass = disabled
-      ? 'opacity-50 cursor-not-allowed hover:bg-gray-800 hover:text-gray-400 hover:border-gray-700'
-      : 'cursor-pointer';
+      ? 'opacity-50 cursor-not-allowed hover:bg-gray-800/50 hover:text-gray-400 hover:border-gray-700 hover:shadow-none'
+      : 'cursor-pointer active:scale-[0.98]';
 
-    const firstButton = buttonMode === 'file' ? 'rounded-l-lg' : '';
-    const lastButton = buttonMode === 'guitar' ? 'rounded-r-lg' : '';
+    const firstButton = buttonMode === 'file' ? 'rounded-l-xl' : '';
+    const lastButton = buttonMode === 'guitar' ? 'rounded-r-xl' : '';
 
     return `${baseClass} ${
       mode === buttonMode ? activeClass : inactiveClass
@@ -48,10 +48,10 @@ export function InputModeToggle({ disabled = false }: Props) {
 
   return (
     <div>
-      <label className="block text-gray-300 text-sm font-medium mb-2">
+      <label className="block text-gray-300 text-xs font-semibold mb-2 tracking-wide uppercase">
         Input Source
       </label>
-      <div className="flex">
+      <div className="flex gap-0.5 bg-gray-950 p-1 rounded-xl">
         <button
           onClick={() => handleSetMode('file')}
           className={getButtonClass('file')}

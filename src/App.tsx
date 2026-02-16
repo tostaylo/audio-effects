@@ -21,12 +21,13 @@ export function App({
       fixed={[analyser, audioContext.destination]}
     >
       <Main>
-        <Visualizer analyser={analyser} />
         <AudioControls
           track={track}
           audioContext={audioContext}
           audioElement={audioElement}
         />
+        <Visualizer analyser={analyser} />
+
         <DndProvider backend={HTML5Backend}>
           <EffectList />
           <SignalChain audioContext={audioContext} />

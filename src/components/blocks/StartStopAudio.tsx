@@ -128,21 +128,21 @@ export function StartStopAudio({
   return (
     <div>
       {error && (
-        <div className="mb-4 p-4 bg-red-900/30 border-2 border-red-500 rounded-lg text-red-400 text-sm font-medium">
+        <div className="mb-4 p-3 bg-red-900/30 border-2 border-red-500 rounded-xl text-red-400 text-sm font-semibold shadow-lg shadow-red-900/20">
           ⚠ {error}
         </div>
       )}
       {!isPlaying ? (
         <button
           onClick={handleStartAudio}
-          className="w-full px-6 py-4 bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 text-white font-bold text-lg rounded-lg border-2 border-green-400 shadow-lg shadow-green-500/50 transition-all duration-200 hover:shadow-green-400/60 active:scale-[0.98]"
+          className="w-full px-6 py-3 bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 text-white font-bold text-lg rounded-xl border-2 border-green-400 shadow-xl shadow-green-500/50 transition-all duration-200 hover:shadow-green-400/60 hover:scale-[1.02] active:scale-[0.98]"
         >
           ▶ Start Audio
         </button>
       ) : (
         <button
           onClick={handleStopAudio}
-          className="w-full px-6 py-4 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 text-white font-bold text-lg rounded-lg border-2 border-red-400 shadow-lg shadow-red-500/50 transition-all duration-200 hover:shadow-red-400/60 active:scale-[0.98]"
+          className="w-full px-6 py-3 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 text-white font-bold text-lg rounded-xl border-2 border-red-400 shadow-xl shadow-red-500/50 transition-all duration-200 hover:shadow-red-400/60 hover:scale-[1.02] active:scale-[0.98]"
         >
           ■ Stop Audio
         </button>
