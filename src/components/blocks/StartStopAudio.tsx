@@ -86,7 +86,7 @@ export function StartStopAudio({
     }
   }, [selectedTrack, audioElement, mode]);
   const [isPlaying, setPlaying] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
   const [sourceManager, setSourceManager] = useState({
     currentSource: null,
     guitarInput: null,
