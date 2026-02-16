@@ -180,14 +180,14 @@ This command runs **three watchers in parallel** using `npm-run-all`:
 
 **Terminal 1:**
 ```bash
-cd /Users/torretaylor/Develop/audio-effects
+
 npm run start
 # Wait for: "⬣ Listening on http://localhost:8787"
 ```
 
 **Terminal 2:**
 ```bash
-cd /Users/torretaylor/Develop/audio-effects
+
 npm run build:dev
 # Wait for all three watchers to show "ready" messages
 ```
