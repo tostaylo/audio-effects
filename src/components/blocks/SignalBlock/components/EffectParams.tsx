@@ -20,17 +20,11 @@ function formatAudioParam(value: number): string {
 
   // For medium values (1-1000), show with up to 2 decimals
   if (absValue >= 1) {
-    return value
-      .toFixed(2)
-      .replace(/(\.\d*?)0+$/, '$1')
-      .replace(/\.$/, '');
+    return value.toFixed(2).replace(/\.?0+$/, '');
   }
 
   // For small values (< 1), show with up to 3 decimals, removing trailing zeros
-  return value
-    .toFixed(3)
-    .replace(/(\.\d*?)0+$/, '$1')
-    .replace(/\.$/, '');
+  return value.toFixed(3).replace(/\.?0+$/, '');
 }
 
 type EffectParamsProps = {
