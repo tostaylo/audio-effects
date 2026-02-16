@@ -8,7 +8,9 @@ function classes({ id }) {
   const withoutItemClasses = `border-solid border-2 border-sky-500 h-[200px]`;
   const withItemClasses = `border-2 border-gray-700 shadow-lg`;
 
-  return `${!id ? withoutItemClasses : withItemClasses} bg-slate-800 w-[220px] p-2 flex flex-col justify-center items-center rounded-lg`;
+  return `${
+    !id ? withoutItemClasses : withItemClasses
+  } bg-slate-800 w-[220px] p-2 flex flex-col justify-center items-center rounded-lg`;
 }
 
 export function SignalBlock({ position, audioContext }) {

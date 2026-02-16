@@ -18,9 +18,7 @@ export function Effect({ id, type, onClose }) {
       className="text-center w-[160px] bg-gradient-to-br from-gray-800 to-gray-900 border-2 border-gray-700 py-6 px-2 rounded-lg cursor-move relative shadow-md hover:shadow-lg hover:border-gray-600 transition-all"
       ref={dragRef}
     >
-      <div className="text-sky-400 font-bold text-sm tracking-wide">
-        {type}
-      </div>
+      <div className="text-sky-400 font-bold text-sm tracking-wide">{type}</div>
       {isDragging && (
         <span className="absolute inset-0 flex items-center justify-center text-4xl">
           😱
