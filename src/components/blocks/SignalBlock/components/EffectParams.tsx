@@ -10,6 +10,23 @@ type ParamConfig = {
   step: number;
 };
 
+function formatAudioParam(value: number): string {
+  const absValue = Math.abs(value);
+
+  // For large values (>= 1000), show without decimals
+  if (absValue >= 1000) {
+    return value.toFixed(0);
+  }
+
+  // For medium values (1-1000), show with up to 2 decimals
+  if (absValue >= 1) {
+    return value.toFixed(2).replace(/\.?0+$/, '');
+  }
+
+  // For small values (< 1), show with up to 3 decimals, removing trailing zeros
+  return value.toFixed(3).replace(/\.?0+$/, '');
+}
+
 type EffectParamsProps = {
   id: string;
 };
@@ -42,7 +59,7 @@ export function EffectParams({ id }: EffectParamsProps) {
                           {key}
                         </span>
                         <span className="text-gray-300 text-xs font-mono bg-gray-700 px-2 py-1 rounded">
-                          {currentVal?.toPrecision(3)}
+                          {formatAudioParam(currentVal ?? 0)}
                         </span>
                       </div>
                       <input
@@ -62,8 +79,8 @@ export function EffectParams({ id }: EffectParamsProps) {
                         className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-sky-500"
                       />
                       <div className="flex justify-between text-xs text-gray-500 font-mono">
-                        <span>{Number(min ?? 0).toPrecision(3)}</span>
-                        <span>{Number(max ?? 0).toPrecision(3)}</span>
+                        <span>{formatAudioParam(min ?? 0)}</span>
+                        <span>{formatAudioParam(max ?? 0)}</span>
                       </div>
                     </label>
                   </div>
