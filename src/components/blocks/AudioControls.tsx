@@ -26,7 +26,7 @@ export function AudioControls({ track, audioContext, audioElement }: Props) {
   }, []);
 
   return (
-    <div className="mb-8 p-6 border-2 border-gray-700 rounded-lg bg-gradient-to-b from-gray-900 to-gray-800 shadow-xl">
+    <div className="mb-8 p-2 border-2 border-gray-700 rounded-lg bg-gradient-to-b from-gray-900 to-gray-800 shadow-xl">
       <div className="border-b border-gray-700 pb-3 mb-6">
         <h2 className="text-sky-400 text-xl font-semibold tracking-wide">
           Audio Source Controls

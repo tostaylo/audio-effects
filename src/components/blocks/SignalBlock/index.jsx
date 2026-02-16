@@ -5,9 +5,10 @@ import { ArrowDownBox } from '../../icons/ArrowDownBox';
 import { EffectParams } from './components/EffectParams';
 
 function classes({ id }) {
-  const withoutItemClasses = `border-solid border-2 border-sky-500 `;
+  const withoutItemClasses = `border-solid border-2 border-sky-500 h-[200px]`;
+  const withItemClasses = `border-2 border-gray-700 shadow-lg`;
 
-  return `${!id ? withoutItemClasses : ''} bg-slate-800 p-5 rounded-lg`;
+  return `${!id ? withoutItemClasses : withItemClasses} bg-slate-800 w-[220px] p-2 flex flex-col justify-center items-center rounded-lg`;
 }
 
 export function SignalBlock({ position, audioContext }) {
