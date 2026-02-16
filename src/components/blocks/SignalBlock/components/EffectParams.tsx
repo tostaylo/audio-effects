@@ -2,7 +2,19 @@ import { h } from 'preact';
 import { useState } from 'preact/hooks';
 import { useAudioEffectParams } from '../hooks/useAudioEffectParams';
 
-export function EffectParams({ id }) {
+type ParamConfig = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  set: (_node: any, _value: number) => void;
+  min: number;
+  max: number;
+  step: number;
+};
+
+type EffectParamsProps = {
+  id: string;
+};
+
+export function EffectParams({ id }: EffectParamsProps) {
   const effects = useAudioEffectParams(id);
 
   if (!effects || effects.length === 0) return null;
@@ -15,7 +27,8 @@ export function EffectParams({ id }) {
           className="w-full bg-gray-900/50 border-2 border-gray-700 rounded-lg p-2 space-y-3"
         >
           {Object.entries(effect.params)?.map(
-            ([key, { set, min, max, step }]) => {
+            ([key, paramConfig]) => {
+              const { set, min, max, step } = paramConfig as ParamConfig;
               const ParamControl = () => {
                 const [currentVal, setCurrentVal] = useState(
                   effect.webAudioNode[key].value
@@ -35,7 +48,8 @@ export function EffectParams({ id }) {
                         </div>
                         <input
                           onInput={(event) => {
-                            const newValue = Number(event.target.value);
+                            const target = event.target as HTMLInputElement;
+                            const newValue = Number(target.value);
                             set(effect.webAudioNode, newValue);
                             setCurrentVal(newValue);
                           }}

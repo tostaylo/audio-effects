@@ -27,7 +27,15 @@
     "no-unused-vars": [
       "error",
       {
-        "varsIgnorePattern": "^h$" //ignore h imports from preact
+        "varsIgnorePattern": "^h$",
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "varsIgnorePattern": "^h$",
+        "argsIgnorePattern": "^_"
       }
     ]
   }

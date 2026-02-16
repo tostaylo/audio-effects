@@ -1,6 +1,5 @@
 import { h } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
-import { Button } from '../system/Button';
 import { SignalChainOperator } from '../../signal/chain';
 import { useSignalChainStore } from '../../stores/SignalChainProvider';
 import { signalChainStore } from '../../stores';
@@ -10,42 +9,45 @@ async function startAudio({
   audioContext,
   audioElement,
   signalChain,
-  track,
   mode,
   sourceManager,
   setSourceManager,
   setError,
+}: {
+  audioContext: AudioContext;
+  audioElement: HTMLAudioElement;
+  signalChain: any;
+  mode: string;
+  sourceManager: any;
+  setSourceManager: (_manager: any) => void;
+  setError: (_error: string | null) => void;
 }) {
   let activeSource;
 
-  try {
-    if (mode === 'guitar') {
-      activeSource = await switchToGuitar(audioContext, sourceManager);
-      // Update the source manager with the new guitar input
-      setSourceManager({ ...sourceManager, currentSource: activeSource });
-    } else {
-      activeSource = switchToFile(sourceManager);
-      setSourceManager({ ...sourceManager, currentSource: activeSource });
-      audioElement.play();
-    }
-
-    SignalChainOperator.connect({ nodes: signalChain, track: activeSource });
-
-    if (audioContext.state === 'suspended') {
-      audioContext.resume();
-    }
-
-    setError(null);
-  } catch (err) {
-    throw err;
+  if (mode === 'guitar') {
+    activeSource = await switchToGuitar(audioContext, sourceManager);
+    // Update the source manager with the new guitar input
+    setSourceManager({ ...sourceManager, currentSource: activeSource });
+  } else {
+    activeSource = switchToFile(sourceManager);
+    setSourceManager({ ...sourceManager, currentSource: activeSource });
+    audioElement.play();
   }
+
+  SignalChainOperator.connect({ nodes: signalChain, track: activeSource });
+
+  if (audioContext.state === 'suspended') {
+    audioContext.resume();
+  }
+
+  setError(null);
 }
 
 type Props = {
   audioElement: HTMLAudioElement;
   audioContext: AudioContext;
   track: any;
-  onPlayingChange?: (isPlaying: boolean) => void;
+  onPlayingChange?: (_isPlaying: boolean) => void;
 };
 
 export function StartStopAudio({
@@ -104,7 +106,6 @@ export function StartStopAudio({
         audioContext,
         audioElement,
         signalChain: store,
-        track,
         mode,
         sourceManager,
         setSourceManager,
@@ -112,7 +113,8 @@ export function StartStopAudio({
       });
       setPlaying(true);
     } catch (err) {
-      setError(err.message);
+      const error = err as Error;
+      setError(error.message);
       setPlaying(false);
     }
   };
