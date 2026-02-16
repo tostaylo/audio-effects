@@ -256,3 +256,37 @@ npm run build:dev
    - Effects show up with parameter sliders
 
 ---
+
+## 🚀 Deployment (Cloudflare Workers)
+
+### Prerequisites
+
+- A Cloudflare account
+- Wrangler authenticated (`wrangler login`)
+
+### Build for Production
+
+```bash
+npm run esbuild:ci
+npx tailwindcss -i ./src/input.css -o ./public/styles/output.css --minify
+```
+
+### Publish
+
+```bash
+npm run publish
+# or
+wrangler publish
+```
+
+### Deployment URL
+
+The default Workers URL is:
+
+$$
+	ext{https://<worker-name>.<account-subdomain>.workers.dev}
+$$
+
+- Worker name comes from [wrangler.toml](wrangler.toml#L1): `audio-effects`
+- For this account, the live URL is: https://audio-effects.torretaylor.workers.dev
+- You can also attach a custom domain in the Cloudflare dashboard
