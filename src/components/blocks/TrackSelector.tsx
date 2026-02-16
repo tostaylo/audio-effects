@@ -5,12 +5,12 @@ import { AUDIOSOURCE } from '../../actions';
 
 const AVAILABLE_TRACKS = [
   {
-    label: 'Audio Effects Sample',
-    value: './sounds/audio-effects-sample-1.wav',
+    label: 'Guitar Riff 1',
+    value: './sounds/guitar-1.wav',
   },
   {
-    label: 'Sampled Guitar Riff',
-    value: './sounds/sampled-guitar-riff.mp3',
+    label: 'Guitar Riff 2',
+    value: './sounds/guitar-2.mp3',
   },
 ];
 

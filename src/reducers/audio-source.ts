@@ -9,7 +9,7 @@ type AudioSourceState = {
 const initialState: AudioSourceState = {
   mode: 'file',
   isActive: false,
-  selectedTrack: './sounds/audio-effects-sample-1.wav',
+  selectedTrack: './sounds/guitar-1.wav',
 };
 
 function audioSourceReducer(
