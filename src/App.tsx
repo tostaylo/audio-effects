@@ -8,6 +8,7 @@ import { SignalChainProvider } from './stores/SignalChainProvider';
 import { Visualizer } from './components/blocks/Visualizer';
 import { Main } from './components/system/Main';
 import { WebAudioInit } from './types';
+import { InputModeToggle } from './components/blocks/InputModeToggle';
 
 export function App({
   track,
@@ -22,6 +23,7 @@ export function App({
     >
       <Main>
         <Visualizer analyser={analyser} />
+        <InputModeToggle />
         <DndProvider backend={HTML5Backend}>
           <EffectList />
           <SignalChain audioContext={audioContext} />

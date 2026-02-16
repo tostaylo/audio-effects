@@ -1,3 +1,11 @@
+import { combineReducers } from 'redux';
 import signalChainReducer from './signal-chain';
+import audioSourceReducer from './audio-source';
 
-export { signalChainReducer };
+const rootReducer = combineReducers({
+  signalChain: signalChainReducer,
+  audioSource: audioSourceReducer,
+});
+
+export { rootReducer, signalChainReducer };
+export default rootReducer;

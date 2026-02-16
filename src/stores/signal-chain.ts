@@ -1,6 +1,6 @@
 import { createStore } from 'redux';
-import { signalChainReducer } from '../reducers';
+import rootReducer from '../reducers';
 
-const store = createStore(signalChainReducer);
+const store = createStore(rootReducer);
 
 export default store;
