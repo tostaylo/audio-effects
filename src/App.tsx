@@ -3,11 +3,11 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { SignalChain } from './components/blocks/SignalChain';
 import { EffectList } from './components/blocks/EffectList';
-import { StartStopAudio } from './components/blocks/StartStopAudio';
 import { SignalChainProvider } from './stores/SignalChainProvider';
 import { Visualizer } from './components/blocks/Visualizer';
 import { Main } from './components/system/Main';
 import { WebAudioInit } from './types';
+import { AudioControls } from './components/blocks/AudioControls';
 
 export function App({
   track,
@@ -21,16 +21,17 @@ export function App({
       fixed={[analyser, audioContext.destination]}
     >
       <Main>
-        <Visualizer analyser={analyser} />
-        <DndProvider backend={HTML5Backend}>
-          <EffectList />
-          <SignalChain audioContext={audioContext} />
-        </DndProvider>
-        <StartStopAudio
+        <AudioControls
           track={track}
           audioContext={audioContext}
           audioElement={audioElement}
         />
+        <Visualizer analyser={analyser} />
+
+        <DndProvider backend={HTML5Backend}>
+          <EffectList />
+          <SignalChain audioContext={audioContext} />
+        </DndProvider>
       </Main>
     </SignalChainProvider>
   );

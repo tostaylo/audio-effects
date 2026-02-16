@@ -7,5 +7,5 @@ export function Visualizer({ analyser }) {
     waveformVisualizer(analyser);
   }, []);
 
-  return <canvas className="w-10" id="visualizer"></canvas>;
+  return <canvas className="w-[320px]" id="visualizer"></canvas>;
 }

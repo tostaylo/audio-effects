@@ -15,17 +15,21 @@ export function Effect({ id, type, onClose }) {
   return (
     <div
       data-test-id={id}
-      className="bg-slate-800 border-solid border-2 border-slate-900 p-2 rounded-lg cursor-pointer relative"
+      className="text-center w-[160px] bg-gradient-to-br from-gray-800 to-gray-900 border-2 border-gray-700 py-6 px-2 rounded-lg cursor-move relative shadow-md hover:shadow-lg hover:border-gray-600 transition-all"
       ref={dragRef}
     >
-      {type}
-      {isDragging && '😱'}
+      <div className="text-sky-400 font-bold text-sm tracking-wide">{type}</div>
+      {isDragging && (
+        <span className="absolute inset-0 flex items-center justify-center text-4xl">
+          😱
+        </span>
+      )}
       {onClose && (
         <button
-          className="absolute right-1 top-0 text-xs text-sky-400"
+          className="absolute right-2 top-2 w-6 h-6 flex items-center justify-center text-sm text-gray-400 hover:text-red-400 hover:bg-red-900/30 rounded transition-colors font-bold"
           onClick={onClose}
         >
-          X
+          ×
         </button>
       )}
     </div>

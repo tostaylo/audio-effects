@@ -5,3 +5,4 @@ sounds
 tailwind.config.cjs
 src/input.css
 jest.config.cjs
+public

@@ -1,6 +1,10 @@
+export type AudioSource =
+  | MediaElementAudioSourceNode
+  | MediaStreamAudioSourceNode;
+
 export type WebAudioInit = {
   audioContext: AudioContext;
-  track: MediaElementAudioSourceNode;
+  track: AudioSource;
   audioElement: HTMLAudioElement;
   analyser: AnalyserNode;
 };
