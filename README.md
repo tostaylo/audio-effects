@@ -265,18 +265,12 @@ npm run build:dev
 - Wrangler authenticated (`wrangler login`)
 
 ### Build for Production
-
-```bash
-npm run esbuild:ci
-npx tailwindcss -i ./src/input.css -o ./public/styles/output.css --minify
-```
+After building
 
 ### Publish
 
 ```bash
-npm run publish
-# or
-wrangler publish
+npx wrangler@latest deploy
 ```
 
 ### Deployment URL
