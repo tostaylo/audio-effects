@@ -6,7 +6,16 @@ import { useSignalChainStore } from '../../stores/SignalChainProvider';
 import { signalChainStore } from '../../stores';
 import { switchToGuitar, switchToFile } from '../../audio/source-manager';
 
-async function startAudio({ audioContext, audioElement, signalChain, track, mode, sourceManager, setSourceManager, setError }) {
+async function startAudio({
+  audioContext,
+  audioElement,
+  signalChain,
+  track,
+  mode,
+  sourceManager,
+  setSourceManager,
+  setError,
+}) {
   let activeSource;
 
   try {
@@ -32,9 +41,23 @@ async function startAudio({ audioContext, audioElement, signalChain, track, mode
   }
 }
 
-export function StartStopAudio({ audioElement, audioContext, track }) {
+type Props = {
+  audioElement: HTMLAudioElement;
+  audioContext: AudioContext;
+  track: any;
+  onPlayingChange?: (isPlaying: boolean) => void;
+};
+
+export function StartStopAudio({
+  audioElement,
+  audioContext,
+  track,
+  onPlayingChange,
+}: Props) {
   const { store } = useSignalChainStore();
-  const [mode, setMode] = useState(signalChainStore.getState().audioSource.mode);
+  const [mode, setMode] = useState(
+    signalChainStore.getState().audioSource.mode
+  );
   const [selectedTrack, setSelectedTrack] = useState(
     signalChainStore.getState().audioSource.selectedTrack
   );
@@ -68,6 +91,13 @@ export function StartStopAudio({ audioElement, audioContext, track }) {
     audioFileTrack: track,
   });
 
+  // Notify parent when playing state changes
+  useEffect(() => {
+    if (onPlayingChange) {
+      onPlayingChange(isPlaying);
+    }
+  }, [isPlaying, onPlayingChange]);
+
   const handleStartAudio = async () => {
     try {
       await startAudio({
@@ -98,18 +128,24 @@ export function StartStopAudio({ audioElement, audioContext, track }) {
   return (
     <div>
       {error && (
-        <div className="text-red-400 p-2 mb-2 text-sm">
-          {error}
+        <div className="mb-4 p-4 bg-red-900/30 border-2 border-red-500 rounded-lg text-red-400 text-sm font-medium">
+          ⚠ {error}
         </div>
       )}
       {!isPlaying ? (
-        <Button onClick={handleStartAudio}>
-          Start Audio
-        </Button>
+        <button
+          onClick={handleStartAudio}
+          className="w-full px-6 py-4 bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 text-white font-bold text-lg rounded-lg border-2 border-green-400 shadow-lg shadow-green-500/50 transition-all duration-200 hover:shadow-green-400/60 active:scale-[0.98]"
+        >
+          ▶ Start Audio
+        </button>
       ) : (
-        <Button onClick={handleStopAudio}>
-          Stop Audio
-        </Button>
+        <button
+          onClick={handleStopAudio}
+          className="w-full px-6 py-4 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 text-white font-bold text-lg rounded-lg border-2 border-red-400 shadow-lg shadow-red-500/50 transition-all duration-200 hover:shadow-red-400/60 active:scale-[0.98]"
+        >
+          ■ Stop Audio
+        </button>
       )}
     </div>
   );

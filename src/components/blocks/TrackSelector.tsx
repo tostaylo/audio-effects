@@ -41,15 +41,15 @@ export function TrackSelector({ disabled = false }: Props) {
   };
 
   return (
-    <div className="mb-4">
-      <label className="block text-gray-400 text-sm mb-2">
-        Select Audio Track:
+    <div>
+      <label className="block text-gray-300 text-sm font-medium mb-2">
+        Audio Track
       </label>
       <select
         value={selectedTrack}
         onChange={handleTrackChange}
         disabled={disabled}
-        className="bg-gray-800 text-sky-400 p-2 rounded border border-gray-700 w-full max-w-md disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full px-4 py-3 bg-gray-800 text-sky-400 font-medium rounded-lg border-2 border-gray-700 focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500/50 transition-all disabled:opacity-50 disabled:cursor-not-allowed hover:border-gray-600 disabled:hover:border-gray-700"
       >
         {AVAILABLE_TRACKS.map((track) => (
           <option key={track.value} value={track.value}>

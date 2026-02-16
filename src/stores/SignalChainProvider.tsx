@@ -28,7 +28,10 @@ type Props = {
 };
 export function SignalChainProvider({ children, track, fixed }: Props) {
   const [store, setStore] = useState(
-    completeSignalChain({ store: signalChainStore.getState().signalChain, fixed })
+    completeSignalChain({
+      store: signalChainStore.getState().signalChain,
+      fixed,
+    })
   );
 
   useEffect(() => {
