@@ -35,13 +35,31 @@ async function startAudio({ audioContext, audioElement, signalChain, track, mode
 export function StartStopAudio({ audioElement, audioContext, track }) {
   const { store } = useSignalChainStore();
   const [mode, setMode] = useState(signalChainStore.getState().audioSource.mode);
+  const [selectedTrack, setSelectedTrack] = useState(
+    signalChainStore.getState().audioSource.selectedTrack
+  );
 
   useEffect(() => {
     const unsubscribe = signalChainStore.subscribe(() => {
-      setMode(signalChainStore.getState().audioSource.mode);
+      const state = signalChainStore.getState().audioSource;
+      setMode(state.mode);
+      setSelectedTrack(state.selectedTrack);
     });
     return unsubscribe;
   }, []);
+
+  // Update audio element src when selected track changes
+  useEffect(() => {
+    if (audioElement && mode === 'file') {
+      const wasPlaying = !audioElement.paused;
+      audioElement.src = selectedTrack;
+      if (wasPlaying) {
+        audioElement.play().catch((err) => {
+          console.error('Failed to play audio after track change:', err);
+        });
+      }
+    }
+  }, [selectedTrack, audioElement, mode]);
   const [isPlaying, setPlaying] = useState(false);
   const [error, setError] = useState(null);
   const [sourceManager, setSourceManager] = useState({

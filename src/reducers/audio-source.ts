@@ -3,11 +3,13 @@ import AUDIOSOURCE from '../actions/audio-source';
 type AudioSourceState = {
   mode: 'file' | 'guitar';
   isActive: boolean;
+  selectedTrack: string;
 };
 
 const initialState: AudioSourceState = {
   mode: 'file',
   isActive: false,
+  selectedTrack: './sounds/audio-effects-sample-1.wav',
 };
 
 function audioSourceReducer(
@@ -17,6 +19,8 @@ function audioSourceReducer(
   switch (action.type) {
     case AUDIOSOURCE.SET_MODE:
       return { ...state, mode: action.mode };
+    case AUDIOSOURCE.SET_TRACK:
+      return { ...state, selectedTrack: action.track };
     default:
       return state;
   }
