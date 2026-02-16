@@ -38,6 +38,7 @@ npm run build:dev
 - **Real-time Parameter Control** - Adjust effect parameters with immediate audio feedback
 - **Signal Chain Management** - Add, remove, and reorder effects in the signal chain
 - **Multiple Audio Samples** - Test effects with different audio files
+- **Live Guitar Input** - Connect your guitar or microphone for real-time effects processing
 
 ## 🛠️ Tech Stack
 
